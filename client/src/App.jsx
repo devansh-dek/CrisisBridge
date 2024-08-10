@@ -8,6 +8,7 @@ import MapComponent from "./pages/Map";
 import About from "./pages/About";
 import Home from "./pages/Home";
 import InteractiveGame from "./pages/InteractiveGame";
+import Signup from "./components/signup";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
           <Route path="game" element={<InteractiveGame />} />
+          <Route path="signup" element={<Signup/>} />
         </Route>
       </Routes>
     </>
