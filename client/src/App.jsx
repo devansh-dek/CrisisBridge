@@ -15,6 +15,7 @@ import userState from './recoil/atoms/userState';
 import React, { useEffect } from 'react';
 import Shelter from "./pages/Shelter";
 import Game2 from "./pages/Game2";
+import Landing from "./pages/Landing";
 import { Toaster } from "@/components/ui/toaster";
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Landing />} />
           <Route path="awareness" element={<Awareness />} />
           <Route path="map" element={<MapComponent />} />
           <Route path="about" element={<About />} />
@@ -50,7 +51,8 @@ function App() {
           <Route path="game" element={<InteractiveGame />} />
           <Route path="signup" element={<Signup />} />
           <Route path="shelter" element={<Shelter />} />
-          <Route path="game2" element={<Game2/>}/>
+          <Route path="game2" element={<Game2 />} />
+          {/* <Route path="landing" element={<Landing />} /> */}
         </Route>
       </Routes>
       <Toaster />
