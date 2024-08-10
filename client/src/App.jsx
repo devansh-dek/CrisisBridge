@@ -15,6 +15,7 @@ import axios from 'axios';
 import userState from './recoil/atoms/userState';
 import React, { useEffect } from 'react';
 import Shelter from "./pages/Shelter";
+import Game2 from "./pages/Game2";
 
 function App() {
   const setUser = useSetRecoilState(userState);
@@ -50,6 +51,7 @@ function App() {
           <Route path="game" element={<InteractiveGame />} />
           <Route path="signup" element={<Signup />} />
           <Route path="shelter" element={<Shelter />} />
+          <Route path="game2" element={<Game2/>}/>
         </Route>
       </Routes>
     </>
