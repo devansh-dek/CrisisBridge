@@ -46,9 +46,27 @@ function Shelter() {
         });
     }
 
-    const [isVolunteerButton, setIsVolunteerButton] = useState((user.role == 'user' && !users.includes(user.username)) || (currentShelter.progress == 'Unclaimed' && user.role == 'org'))
+    const [isVolunteerButton, setIsVolunteerButton] = useState(true);
 
     async function addUserToShelter() {
+        if (user.userId == 0) {
+            toast({
+                title: "Login to volunteer",
+            });
+            return;
+        }
+        else if (user.role == 'org' && !currentShelter.status == 'Unclaimed') {
+            toast({
+                title: "Shelter has already been claimed",
+            });
+            return;
+        }
+        else if (users.includes(user.username) && user.role == 'user') {
+            toast({
+                title: "User has already volunteered",
+            });
+            return;
+        }
         try {
             const payload = {
                 shelterId: currentShelter._id,
@@ -103,10 +121,10 @@ function Shelter() {
             <div className="bg-white p-5 shadow-xl rounded-lg">
                 <div className="text-3xl font-semibold mb-5 flex justify-between items-center">
                     Volunteers 
-                    {user.role == 'user' && isVolunteerButton ? 
+                    {isVolunteerButton ? user.role == 'user' ?
                         (
                             <Button className="rounded-xl" onClick={addUserToShelter}>Volunteer to this shelter as an individual</Button>
-                        ) : currentShelter.progress == 'Unclaimed' && user.role == 'org' && isVolunteerButton ? 
+                        ) : 
                         (
                             <Popover>
                                 <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
@@ -117,7 +135,7 @@ function Shelter() {
                                         defaultValue="1"
                                         className="mt-5"
                                     />
-                                    <Button className="mt-5">Submit</Button>
+                                    <Button onClick={addUserToShelter} className="mt-5">Submit</Button>
                                 </PopoverContent>
                             </Popover>
                         ) : ''
