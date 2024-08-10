@@ -40,12 +40,13 @@ function Signup(){
     }
 
     return (
-        <div className="h-screen w-screen flex justify-center items-center">
+        <div className=" mt-10 flex justify-center">
             <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-[50rem] h-fit">
                 <div className="flex flex-col gap-2">
                     <div className="text-lg font-semibold">Organization Info</div>
                     <div className="mb-5">Please use your local team name. E.g. "American Red Cross, TX Chapter" NOT "American Red Cross."</div>
+                    <div className="mb-5">Do not fill if you are a volunteer.</div>
                     <FormField
                     control={form.control}
                     name="orgname"
