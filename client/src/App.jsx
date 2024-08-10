@@ -3,7 +3,6 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Layout from "./components/layout";
 import Awareness from "./pages/Awareness";
-import Disasters from "./pages/Disasters";
 import MapComponent from "./pages/Map";
 import About from "./pages/About";
 import Home from "./pages/Home";
@@ -42,11 +41,10 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="awareness" element={<Awareness />} />
-          <Route path="disasters" element={<Disasters />} />
           <Route path="map" element={<MapComponent />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
+          <Route path="register" element={<Signup />} />
           <Route path="game" element={<InteractiveGame />} />
           <Route path="signup" element={<Signup />} />
           <Route path="shelter" element={<Shelter />} />

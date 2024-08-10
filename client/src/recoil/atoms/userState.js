@@ -5,6 +5,7 @@ const userState = atom({
         userId: 0,
         username: '',
         email: '',
+        role: '',
         isAuthenticated: false,
     },
 });

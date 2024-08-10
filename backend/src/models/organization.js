@@ -7,7 +7,6 @@ const OrganizationSchema = new mongoose.Schema({
     },
     orgdesc: {
         type: String,
-        required: true
     },
     name: {
         type: String,
@@ -23,7 +22,6 @@ const OrganizationSchema = new mongoose.Schema({
     },
     orgtype: {
         type: String,
-        required: true
     },
     admin: {
         type: mongoose.Schema.Types.ObjectId,

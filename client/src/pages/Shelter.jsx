@@ -7,6 +7,9 @@ import {
 import { useState, useMemo, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
+import { ArrowBigLeft, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 function Shelter() {
     const currentShelter = useRecoilValue(currentShelterAtom);
@@ -34,7 +37,8 @@ function Shelter() {
     const center = useMemo(() => ({ lat: currentShelter.latitude, lng: currentShelter.longitude }), [currentShelter.latitude, currentShelter.longitude]);
 
     return (
-        <div className="bg-zinc-100 min-h-full w-screen">
+        <div className="bg-zinc-100 min-h-full w-full">
+        <Link to="/"><div className="px-10 text-xl mt-5 underline flex gap-3 items-center cursor-pointer"><ArrowLeft />Go Back</div></Link>
         <div className="flex gap-10 m-10">
             <div className="basis-2/3 flex flex-col justify-between">
             <div className="bg-white rounded-lg shadow-xl p-5">
@@ -50,7 +54,7 @@ function Shelter() {
                     </div>
                     <div className="basis-1/2">
                     <div className="text-xl font-semibold text-zinc-500 mb-2">Disaster Type</div>
-                    <div className="text-lg mb-5 font-semibold bg-green-500 text-white w-fit px-5 rounded-full py-1">{currentShelter.disasterType}</div>
+                    <div className="text-lg mb-5 font-semibold bg-cyan-500 text-white w-fit px-5 rounded-full py-1">{currentShelter.disasterType}</div>
                     </div>
                     <div className="basis-1/2">
                     <div className="text-xl font-semibold text-zinc-500">Status</div>
@@ -59,7 +63,14 @@ function Shelter() {
                 </div>
             </div>
             <div className="bg-white p-5 shadow-xl rounded-lg">
-                <div className="text-3xl font-semibold mb-5">Volunteers</div>
+                <div className="text-3xl font-semibold mb-5 flex justify-between items-center">
+                    Volunteers 
+                    {currentShelter.progress == 'Unclaimed' && 
+                        (
+                            <Button className="rounded-xl">Volunteer to this shelter</Button>
+                        )
+                    }
+                </div>
                 <div className="flex pb-5">
                 <div className="basis-1/2">
                     <div className="text-xl font-semibold text-zinc-500 mb-2">Organizations</div>

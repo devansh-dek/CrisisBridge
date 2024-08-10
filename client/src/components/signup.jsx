@@ -16,60 +16,57 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import logo from "../assets/disaster-management.png"
+import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
-  firstname: z.string().min(2, {
-    message: "First name must be at least 2 characters.",
-  }),
-  lastname: z.string().min(2, {
-    message: "Last name must be at least 2 characters.",
-  }),
+  username: z.string(),
   email : z.string().email(),
-  mobile : z.string(),
-  orgname : z.string(),
+  mobile: z.string().regex(/^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{3})[-. ]*(\d{4})(?: *x(\d+))?\s*$/),
+  orgname : z.string().optional(),
   password: z.string(),
 });
 
 function Signup() {
+  const navigate = useNavigate();
+
   const form = useForm({
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(values) {
-    console.log(JSON.stringify(values));
+  async function onSubmit(values) {
+    try {
+      if (values.orgname) {
+        values = { ...values, role: 'org'};
+      }
+      else {
+        values = { ...values, role: 'user'};
+      }
+      const response = await axios.post('http://localhost:3000/api/v1/signup', values, { withCredentials: true });
+      console.log(response.data);
+      navigate('/login');
+    } catch (error) {
+      console.error('Error: ', error);
+    }
   }
 
   return (
-    <div className="h-full mt-20 flex gap-40 justify-center items-center">
+    <div className="h-full my-20 flex gap-40 justify-center items-center">
       <img className="w-[20rem]" src={logo}></img>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-4 w-[25rem] h-fit"
         >
-          <div className="text-lg font-semibold">Sign up</div>
-          <div className="mb-5">Sign up as a volunteer</div>
+          <div className="text-lg font-semibold mb-5">Sign up as a volunteer</div>
           <FormField
             control={form.control}
-            name="firstname"
+            name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>First Name</FormLabel>
+                <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input placeholder="Aditya" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="lastname"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Last Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Raj" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,7 +103,7 @@ function Signup() {
             name="orgname"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Organisation Name you want to volunteer with</FormLabel>
+                <FormLabel>Organisation Name (if you are part of an org)</FormLabel>
                 <FormControl>
                   <Input placeholder="Orgnisation name" {...field} />
                 </FormControl>
@@ -127,7 +124,10 @@ function Signup() {
               </FormItem>
             )}
           />
-          <Button type="submit">Sign Up</Button>
+          <div className="flex gap-5 items-center">
+            <Button type="submit">Sign Up</Button>
+            <Link to='/login'><Button variant='ghost' className="cursor-pointer hover:underline transition">Already have an account? Login</Button></Link>
+          </div>
         </form>
       </Form>
     </div>

@@ -18,10 +18,6 @@ const navlist = [
     link: "/",
   },
   {
-    title: "Disasters",
-    link: "/disasters",
-  },
-  {
     title: "Awareness",
     link: "/awareness",
   },

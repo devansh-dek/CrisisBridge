@@ -40,7 +40,7 @@ function Register(){
     }
 
     return (
-        <div className=" mt-10 flex justify-center">
+        <div className=" my-10 flex justify-center">
             <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 w-[50rem] h-fit">
                 <div className="flex flex-col gap-2">

@@ -8,6 +8,7 @@ async function signup(req, res) {
         const userData = {
             username: req.body.username,
             email: req.body.email,
+            mobile: req.body.mobile,
             password: req.body.password,
             role: req.body.role
         };

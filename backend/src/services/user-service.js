@@ -63,7 +63,8 @@ class UserServices {
                 id: user._id,
                 username: user.username,
                 email: user.email,
-                access: token
+                access: token,
+                role: user.role
             }
             return response;
         } catch (error) {

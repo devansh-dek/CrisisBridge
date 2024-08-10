@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSetRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
@@ -48,6 +48,7 @@ function Login() {
           userId: response.data.response.id,
           username: response.data.response.username,
           email: response.data.response.email,
+          role: response.data.response.role,
           isAuthenticated: true
         }
         console.log("User logged are ", userLogged);
@@ -100,7 +101,7 @@ function Login() {
             )}
           />
           <Button type="submit" className="mr-5">Login</Button>
-          <Button variant="secondary">Sign Up</Button>
+          <Link to='/signup'><Button variant='ghost' className="cursor-pointer hover:underline transition">Don't have an account? Signup</Button></Link>
         </form>
       </Form>
     </div>
