@@ -1,77 +1,144 @@
-import {
-  GoogleMap,
-  MarkerF,
-  useLoadScript,
-  Circle,
-} from "@react-google-maps/api";
-import { useEffect, useMemo, useState } from "react";
-import red from "../assets/red.png";
-import green from "../assets/green.png";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-function MapComponent() {
-  const [map, setMap] = useState(null);
-  const [data, setData] = useState([]);
+const ItemTypes = {
+  ITEM: 'item',
+};
 
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "",
-  });
+const items = [
+  { id: 1, name: 'First Aid Kit', isEssential: true, image: 'https://example.com/first_aid_kit.png' },
+  { id: 2, name: 'Flashlight', isEssential: true, image: 'https://example.com/flashlight.png' },
+  { id: 3, name: 'Stuffed Toy', isEssential: false, image: 'https://example.com/stuffed_toy.png' },
+  { id: 4, name: 'Canned Food', isEssential: true, image: 'https://example.com/canned_food.png' },
+  { id: 5, name: 'Board Games', isEssential: false, image: 'https://example.com/board_games.png' },
+  { id: 6, name: 'Batteries', isEssential: true, image: 'https://example.com/batteries.png' },
+];
 
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: "http://localhost:3000/api/v1/shelter",
-    }).then((response) => {
-      setData(response.data.data);
-    });
-  }, []);
-
-  const center = useMemo(() => ({ lat: 20.59, lng: 78.96 }), [20.59, 78.96]);
+const DraggableItem = ({ item }) => {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.ITEM,
+    item: { id: item.id },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
 
   return (
-    <div>
-      {!isLoaded ? (
-        <h1>loading..</h1>
-      ) : (
-        <div className=" flex justify-center gap-10 h-full w-full items-center mt-10">
-          <div className="flex flex-col pl-5">
-            <div className="text-3xl font-bold">
-              Visualise the Disaster in Real Time
-            </div>
-            <div className="">powered by Google Maps</div>
-            <div className="pt-10 pl-10">
-              <div className="flex gap-2 items-center">
-                <img className="h-[10px] w-[10px]" src={red} />
-                <div>Unclaimed by orgs</div>
-              </div>
-              <div className="flex gap-2 items-center">
-                <img className="h-[10px] w-[10px]" src={green} />
-                <div>Claimed by orgs</div>
-              </div>
-            </div>
-          </div>
-          <GoogleMap
-            mapContainerStyle={{ height: "600px", width: "60%" }}
-            center={center}
-            zoom={4}
-            onLoad={(map) => setMap(map)}
-          >
-            {data.map(
-              ({ name, description, latitude, longitude, progress }) => {
-                return (
-                  <MarkerF
-                    icon={progress == "Unclaimed" ? red : green}
-                    title={`${name} ${description}`}
-                    position={{ lat: latitude, lng: longitude }}
-                  />
-                );
-              }
-            )}
-          </GoogleMap>
-        </div>
-      )}
+    <div
+      ref={drag}
+      className={`p-2 my-2 border rounded-md cursor-pointer flex items-center ${isDragging ? 'opacity-50' : 'opacity-100'
+        } bg-white shadow-md`}
+    >
+      <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" />
+      {item.name}
     </div>
+  );
+};
+
+const DropZone = ({ onDrop, acceptedItems, isFull }) => {
+  const [{ isOver }, drop] = useDrop(() => ({
+    accept: ItemTypes.ITEM,
+    drop: (item) => onDrop(item.id),
+    collect: (monitor) => ({
+      isOver: monitor.isOver(),
+    }),
+  }));
+
+  return (
+    <div
+      ref={drop}
+      className={`p-4 border-dashed border-4 rounded-md h-32 flex justify-center items-center ${isOver ? 'bg-green-100' : 'bg-gray-100'
+        } ${isFull ? 'bg-red-100' : ''}`}
+    >
+      <div className="text-center">
+        {acceptedItems.length === 0 ? (
+          <p className="text-gray-600">Drop items here</p>
+        ) : (
+          <ul>
+            {acceptedItems.map((item) => (
+              <li key={item.id} className="text-gray-800 flex items-center">
+                <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" /> {item.name}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </div>
+  );
+};
+
+function InteractiveGame() {
+  const [acceptedItems, setAcceptedItems] = useState([]);
+  const [message, setMessage] = useState('');
+  const [points, setPoints] = useState(0);
+  const [isCompleted, setIsCompleted] = useState(false);
+
+  const handleDrop = (id) => {
+    const droppedItem = items.find((item) => item.id === id);
+    if (acceptedItems.length >= 4) {
+      setMessage('Your backpack is full!');
+    } else if (droppedItem && droppedItem.isEssential) {
+      setAcceptedItems((prevItems) => [...prevItems, droppedItem]);
+      setPoints((prevPoints) => prevPoints + 10);
+      setMessage('Great! Keep going!');
+    } else {
+      setPoints((prevPoints) => prevPoints - 5);
+      setMessage('Oops! That item is not essential.');
+    }
+  };
+
+  useEffect(() => {
+    if (acceptedItems.length === 4) {
+      setMessage('Success! You have completed your kit.');
+      setIsCompleted(true);
+    }
+  }, [acceptedItems]);
+
+  const resetGame = () => {
+    setAcceptedItems([]);
+    setMessage('');
+    setPoints(0);
+    setIsCompleted(false);
+  };
+
+  return (
+    <DndProvider backend={HTML5Backend}>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-blue-400 to-purple-600 text-white">
+        <h1 className="text-4xl font-bold mb-6">Disaster Preparedness Kit</h1>
+        <div className="text-2xl mb-4">Points: {points}</div>
+        <div className="flex flex-col md:flex-row md:space-x-6">
+          <div className="bg-white text-gray-800 p-6 rounded-md shadow-md w-full md:w-1/2">
+            <h2 className="text-xl font-semibold mb-4">Items</h2>
+            {items.map((item) => (
+              <DraggableItem key={item.id} item={item} />
+            ))}
+          </div>
+          <div className="bg-white text-gray-800 p-6 rounded-md shadow-md w-full md:w-1/2 mt-6 md:mt-0">
+            <h2 className="text-xl font-semibold mb-4">Your Kit</h2>
+            <DropZone
+              onDrop={handleDrop}
+              acceptedItems={acceptedItems}
+              isFull={acceptedItems.length >= 4}
+            />
+          </div>
+        </div>
+        {message && (
+          <div className="mt-4 p-4 rounded-md bg-yellow-500 text-gray-800">
+            {message}
+          </div>
+        )}
+        {isCompleted && (
+          <button
+            onClick={resetGame}
+            className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Play Again
+          </button>
+        )}
+      </div>
+    </DndProvider>
   );
 }
 
-export default MapComponent;
+export default InteractiveGame;

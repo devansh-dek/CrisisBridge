@@ -9,6 +9,7 @@ const ItemTypes = {
     ITEM: 'item',
 };
 
+
 const items = [
     { id: 1, name: 'First Aid Kit', isEssential: true, icon: <FaFirstAid /> },
     { id: 2, name: 'Flashlight', isEssential: true, icon: <FaLightbulb /> },
@@ -17,7 +18,6 @@ const items = [
     { id: 5, name: 'Board Games', isEssential: false, icon: <FaPuzzlePiece /> },
     { id: 6, name: 'Batteries', isEssential: true, icon: <FaBatteryFull /> },
 ];
-
 
 const DraggableItem = ({ item }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
@@ -34,13 +34,15 @@ const DraggableItem = ({ item }) => {
             className={`p-2 my-2 border rounded-md cursor-pointer flex items-center ${isDragging ? 'opacity-50' : 'opacity-100'
                 } bg-white shadow-md`}
         >
-            <span className="mr-2 text-xl">{item.icon}</span>
+            {/* <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" /> */}
+            <span className="mr-2">{item.icon}</span> {item.name}
+
             {item.name}
         </div>
     );
 };
 
-const DropZone = ({ onDrop, acceptedItems, message, isFull }) => {
+const DropZone = ({ onDrop, acceptedItems, isFull }) => {
     const [{ isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.ITEM,
         drop: (item) => onDrop(item.id),
@@ -62,7 +64,7 @@ const DropZone = ({ onDrop, acceptedItems, message, isFull }) => {
                     <ul>
                         {acceptedItems.map((item) => (
                             <li key={item.id} className="text-gray-800 flex items-center">
-                                <span className="mr-2">{item.icon}</span> {item.name}
+                                <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" /> {item.name}
                             </li>
                         ))}
                     </ul>
@@ -76,6 +78,7 @@ function InteractiveGame() {
     const [acceptedItems, setAcceptedItems] = useState([]);
     const [message, setMessage] = useState('');
     const [points, setPoints] = useState(0);
+    const [isCompleted, setIsCompleted] = useState(false);
 
     const handleDrop = (id) => {
         const droppedItem = items.find((item) => item.id === id);
@@ -94,8 +97,16 @@ function InteractiveGame() {
     useEffect(() => {
         if (acceptedItems.length === 4) {
             setMessage('Success! You have completed your kit.');
+            setIsCompleted(true);
         }
     }, [acceptedItems]);
+
+    const resetGame = () => {
+        setAcceptedItems([]);
+        setMessage('');
+        setPoints(0);
+        setIsCompleted(false);
+    };
 
     return (
         <DndProvider backend={HTML5Backend}>
@@ -122,6 +133,14 @@ function InteractiveGame() {
                     <div className="mt-4 p-4 rounded-md bg-yellow-500 text-gray-800">
                         {message}
                     </div>
+                )}
+                {isCompleted && (
+                    <button
+                        onClick={resetGame}
+                        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Play Again
+                    </button>
                 )}
             </div>
         </DndProvider>
