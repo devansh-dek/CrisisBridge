@@ -13,6 +13,8 @@ router.put('/shelter/:id', ShelterController.updateShelter);
 router.delete('/shelter/:id', ShelterController.deleteShelter);
 router.post('/shelter/join-as-org', ShelterController.joinShelterAsOrganization);
 router.post('/shelter/join-as-user', ShelterController.joinShelterAsUser);
+router.post('/shelter/quit-organization', ShelterController.quitShelterAsOrganization);
+router.post('/shelter/quit-user', ShelterController.quitShelterAsUser);
 
 //Organization 
 router.post('/organization', OrganizationController.createOrganization);

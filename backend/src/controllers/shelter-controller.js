@@ -171,6 +171,42 @@ async function joinShelterAsUser(req, res) {
         });
     }
 }
+async function quitShelterAsOrganization(req, res) {
+    try {
+        const { shelterId, orgId } = req.body;
+        const shelter = await shelterService.quitShelterAsOrganization(shelterId, orgId);
+        return res.status(200).json({
+            success: true,
+            message: 'Organization removed from shelter successfully',
+            data: shelter
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to remove organization from shelter',
+            error: error.message
+        });
+    }
+}
+
+async function quitShelterAsUser(req, res) {
+    try {
+        const { shelterId, userId } = req.body;
+        const shelter = await shelterService.quitShelterAsUser(shelterId, userId);
+        return res.status(200).json({
+            success: true,
+            message: 'User removed from shelter successfully',
+            data: shelter
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to remove user from shelter',
+            error: error.message
+        });
+    }
+}
+
 
 module.exports = {
     createShelter,
@@ -179,5 +215,7 @@ module.exports = {
     updateShelter,
     deleteShelter,
     joinShelterAsOrganization,
-    joinShelterAsUser
+    joinShelterAsUser,
+    quitShelterAsOrganization,
+    quitShelterAsUser
 };

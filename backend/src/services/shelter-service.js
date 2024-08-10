@@ -72,6 +72,24 @@ class ShelterService {
             throw error;
         }
     }
+
+    async quitShelterAsOrganization(shelterId, orgId) {
+        try {
+            return await this.shelterRepo.quitShelterAsOrganization(shelterId, orgId);
+        } catch (error) {
+            console.error("Error in ShelterService.quitShelterAsOrganization", error);
+            throw error;
+        }
+    }
+
+    async quitShelterAsUser(shelterId, userId) {
+        try {
+            return await this.shelterRepo.quitShelterAsUser(shelterId, userId);
+        } catch (error) {
+            console.error("Error in ShelterService.quitShelterAsUser", error);
+            throw error;
+        }
+    }
 }
 
 module.exports = ShelterService;
