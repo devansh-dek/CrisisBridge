@@ -4,27 +4,26 @@ import {
     MarkerF,
     useLoadScript,
 } from "@react-google-maps/api";
-import red from "../assets/red.png";
 import { useState, useMemo, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 
 function Shelter() {
     const currentShelter = useRecoilValue(currentShelterAtom);
+    console.log(currentShelter);
     let orgs = [];
     let users = [];
     
-        if (currentShelter.organizations.length>0){
-            orgs = currentShelter.organizations.map((org) => {
-                return (org.orgId);
-            });
-        }
-        if (currentShelter.users.length>0){
-            users = currentShelter.users.map((user) => {
-                return (user);
-            });
-        }
-
+    if (currentShelter.organizations.length>0){
+        orgs = currentShelter.organizations.map((org) => {
+            return (org.orgId.orgname);
+        });
+    }
+    if (currentShelter.users.length>0){
+        users = currentShelter.users.map((user) => {
+            return (user.username);
+        });
+    }
 
     const [map, setMap] = useState(null);
   

@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Home from "./pages/Home";
 import InteractiveGame from "./pages/InteractiveGame";
 import Signup from "./components/signup";
+import Shelter from "./pages/Shelter";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="game" element={<InteractiveGame />} />
           <Route path="signup" element={<Signup/>} />
+          <Route path="shelter" element={<Shelter />} />
         </Route>
       </Routes>
     </>
