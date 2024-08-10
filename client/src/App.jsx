@@ -7,6 +7,7 @@ import Disasters from "./pages/Disasters";
 import MapComponent from "./pages/Map";
 import About from "./pages/About";
 import Home from "./pages/Home";
+import Shelter from "./pages/Shelter";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
+          <Route path="shelter" element={<Shelter />} />
         </Route>
       </Routes>
     </>
