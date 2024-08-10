@@ -10,7 +10,8 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import logo from "../assets/logo.png"
+import logo from "../assets/logo.png";
+import { Button } from "./ui/button";
 
 const navlist = [
   {
@@ -18,8 +19,8 @@ const navlist = [
     link: "/",
   },
   {
-    title: "Awareness",
-    link: "/awareness",
+    title: "Game",
+    link: "/game",
   },
   {
     title: "Map",
@@ -30,33 +31,40 @@ const navlist = [
     link: "/about",
   },
   {
-    title : "Register",
-    link: "/register"
-  }
+    title: "Register",
+    link: "/register",
+  },
 ];
 
 function Navbar() {
   return (
-    <NavigationMenu className=" m-1 ml-2">
-      <NavigationMenuList>
-        <NavigationMenuItem>
+    <>
+      <NavigationMenu className=" m-1 ml-2">
+        <NavigationMenuList>
+          <NavigationMenuItem>
             <Link to="/">
-                <img className=" h-20" src={logo}></img>
+              <img className=" h-20" src={logo}></img>
             </Link>
-        </NavigationMenuItem>
-        {navlist.map((navItem) => {
-          return (
-            <NavigationMenuItem>
-              <Link to={navItem.link}>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  {navItem.title}
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          );
-        })}
-      </NavigationMenuList>
-    </NavigationMenu>
+          </NavigationMenuItem>
+          {navlist.map((navItem) => {
+            return (
+              <NavigationMenuItem>
+                <Link to={navItem.link}>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    {navItem.title}
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            );
+          })}
+        </NavigationMenuList>
+      </NavigationMenu>
+      <div className="fixed top-5 right-5">
+        <Link to="/game2">
+         <Button className="rounded-3xl w-full text-xl">Take a quiz!</Button>
+        </Link>
+      </div>
+    </>
   );
 }
 
