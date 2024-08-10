@@ -36,7 +36,7 @@ function Signup(){
     });
 
     function onSubmit(values) {
-        console.log(values)
+        console.log(JSON.stringify(values));
     }
 
     return (
