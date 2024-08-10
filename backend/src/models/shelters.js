@@ -47,7 +47,12 @@ const shelterSchema = new Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'
         }
-    ]
+    ],
+    progress: {
+        type: String,
+        require: false,
+        default: "Unclaimed"
+    }
 }, {
     timestamps: true // Automatically adds createdAt and updatedAt fields
 });
