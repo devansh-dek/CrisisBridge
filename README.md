@@ -1,6 +1,6 @@
-# Project Name
+# CrisisBridge
 
-Project Name is a collaborative platform that links volunteers from relief organizations with individuals in need of assistance during disasters.
+CrisisBridge is a collaborative platform that links volunteers from relief organizations with individuals in need of assistance during disasters.
 
 Project Name excels in environments where different volunteer groups and agencies join forces and synchronize their activities. Unlike traditional top-down management, it fosters a Collaborative Accountability model, enabling independent organizations to collaborate seamlessly without rigid hierarchical controls.
 
