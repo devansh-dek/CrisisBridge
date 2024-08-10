@@ -14,6 +14,7 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import axios from 'axios';
 import userState from './recoil/atoms/userState';
 import React, { useEffect } from 'react';
+import Shelter from "./pages/Shelter";
 
 function App() {
   const setUser = useSetRecoilState(userState);
@@ -37,24 +38,20 @@ function App() {
   }, [setUser]);
   return (
     <>
-      <RecoilRoot>
-
-
-
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="awareness" element={<Awareness />} />
-            <Route path="disasters" element={<Disasters />} />
-            <Route path="map" element={<MapComponent />} />
-            <Route path="about" element={<About />} />
-            <Route path="login" element={<Login />} />
-            <Route path="register" element={<Register />} />
-            <Route path="game" element={<InteractiveGame />} />
-            <Route path="signup" element={<Signup />} />
-          </Route>
-        </Routes>
-      </RecoilRoot>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="awareness" element={<Awareness />} />
+          <Route path="disasters" element={<Disasters />} />
+          <Route path="map" element={<MapComponent />} />
+          <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="game" element={<InteractiveGame />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="shelter" element={<Shelter />} />
+        </Route>
+      </Routes>
     </>
   );
 }

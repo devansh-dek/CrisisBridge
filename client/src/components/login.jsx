@@ -99,7 +99,8 @@ function Login() {
               </FormItem>
             )}
           />
-          <Button type="submit">Login</Button>
+          <Button type="submit" className="mr-5">Login</Button>
+          <Button variant="secondary">Sign Up</Button>
         </form>
       </Form>
     </div>
