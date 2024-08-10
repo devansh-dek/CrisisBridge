@@ -5,8 +5,12 @@ const cors = require('cors');
 const PORT = 3000;
 const apiRoutes = require('./routes/index')
 const connect = require('./config/database.js')
-app.use(cors());
-
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization']
+};
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/api', apiRoutes);

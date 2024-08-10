@@ -25,7 +25,7 @@ class ShelterService {
 
     async getAllShelters() {
         try {
-            return await this.shelterRepo.getAll();
+            return await this.shelterRepo.getAllShelters();
         } catch (error) {
             console.error("Error in ShelterService.getAllShelters", error);
             throw error;

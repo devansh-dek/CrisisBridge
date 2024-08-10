@@ -90,6 +90,22 @@ class ShelterRepository extends CrudRepository {
             throw error;
         }
     }
+    async getAllShelters() {
+        try {
+            const shelters = await Shelter.find()
+                .populate({
+                    path: 'organizations.orgId',
+                    populate: {
+                        path: 'admin',
+                    }
+                })
+                .populate('users');
+
+            return shelters;
+        } catch (error) {
+            throw new Error(`Error fetching shelters: ${error.message}`);
+        }
+    };
 }
 
 module.exports = ShelterRepository;
