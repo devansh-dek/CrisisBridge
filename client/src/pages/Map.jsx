@@ -8,14 +8,14 @@ import { useEffect, useMemo, useState } from "react";
 import red from "../assets/red.png";
 import green from "../assets/green.png";
 import axios from "axios";
-import { API_KEY } from "googleapi";
+// import { API_KEY } from "googleapi";
 
 function MapComponent() {
   const [map, setMap] = useState(null);
   const [data, setData] = useState([]);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: API_KEY,
+    googleMapsApiKey: AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY,
   });
 
   useEffect(() => {
