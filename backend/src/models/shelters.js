@@ -28,7 +28,7 @@ const shelterSchema = new Schema({
     disasterType: {
         type: String,
         required: true,
-        enum: ['Hurricane', 'Earthquake', 'Flood', 'Wildfire', 'Tornado', 'Other'] // Add other types if needed
+        enum: ['Hurricane', 'Earthquake', 'Flood', 'Wildfire', 'Tornado', 'Other']
     },
     organizations: [
         {
