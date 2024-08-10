@@ -1,13 +1,14 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/login";
-import Signup from "./components/signup";
+import Register from "./components/register";
 import Layout from "./components/layout";
 import Awareness from "./pages/Awareness";
 import Disasters from "./pages/Disasters";
 import MapComponent from "./pages/Map";
 import About from "./pages/About";
 import Home from "./pages/Home";
-import Shelter from "./pages/Shelter";
+import InteractiveGame from "./pages/InteractiveGame";
+import Signup from "./components/signup";
 
 function App() {
   return (
@@ -20,8 +21,9 @@ function App() {
           <Route path="map" element={<MapComponent />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
-          <Route path="shelter" element={<Shelter />} />
+          <Route path="register" element={<Register />} />
+          <Route path="game" element={<InteractiveGame />} />
+          <Route path="signup" element={<Signup/>} />
         </Route>
       </Routes>
     </>
