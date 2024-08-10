@@ -130,21 +130,20 @@ function InteractiveGame() {
                 <h1 className="text-3xl font-bold mb-4 text-gray-950 ">Disaster Preparedness Kit</h1>
                 <div className="text-lg mb-2 text-gray-950 ">Points: {points}</div>
                 <div className="flex flex-col md:flex-row md:space-x-4 w-full justify-center items-center">
-                    <div className="bg-white text-gray-800 p-4 rounded-md shadow-lg flex justify-center items-center mb-4">
+                    <div className="bg-white text-gray-800 p-4 rounded-md shadow-lg flex flex-col justify-center items-center mb-4">
                         <h2 className="text-lg font-semibold mb-4">Items</h2>
-                        <div className="flex flex-wrap justify-center items-center">
+                        <div className="flex flex-wrap justify-center items-center w-[20rem]">
                             {items.map((item) => (
                                 <DraggableItem key={item.id} item={item} />
                             ))}
                         </div>
                     </div>
-                    <div className="bg-white text-gray-800 p-4 rounded-md shadow-lg flex justify-center items-center">
+                    <div className="bg-white text-gray-800 p-4 rounded-md shadow-lg flex flex-col justify-center items-center">
                         <h2 className="text-lg font-semibold mb-4">Your Kit</h2>
                         <DropZone
                             onDrop={handleDrop}
                             acceptedItems={acceptedItems}
                             isFull={acceptedItems.length >= 4}
-                            message={message}
                         />
                     </div>
                 </div>
