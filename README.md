@@ -51,9 +51,9 @@ open a new terminal and
 create a `.env` in root and paste this
 
 ```sh
-  $ MONGO_DB_URI =
-  $ JWT_SECRET_KEY =
-  $ PORT = 3000
+   MONGO_DB_URI =
+   JWT_SECRET_KEY =
+   PORT = 3000
 ```
 fill your mongo_db_uri and jwt_secret_key
 
