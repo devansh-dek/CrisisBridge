@@ -11,6 +11,8 @@ router.get('/shelter/:id', ShelterController.getShelter);
 router.get('/shelter', ShelterController.getAllShelters);
 router.put('/shelter/:id', ShelterController.updateShelter);
 router.delete('/shelter/:id', ShelterController.deleteShelter);
+router.post('/shelter/join-as-org', ShelterController.joinShelterAsOrganization);
+router.post('/shelter/join-as-user', ShelterController.joinShelterAsUser);
 
 //Organization 
 router.post('/organization', OrganizationController.createOrganization);

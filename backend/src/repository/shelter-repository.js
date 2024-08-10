@@ -5,8 +5,29 @@ class ShelterRepository extends CrudRepository {
     constructor() {
         super(Shelter);
     }
+    async joinShelterAsOrganization(shelterId, orgId, peopleCount) {
+        return await Shelter.findByIdAndUpdate(
+            shelterId,
+            {
+                $push: {
+                    organizations: { orgId, peopleCount }
+                }
+            },
+            { new: true }
+        );
+    }
 
-    // You can add any additional methods specific to Shelter here if needed
+    async joinShelterAsUser(shelterId, userId) {
+        return await Shelter.findByIdAndUpdate(
+            shelterId,
+            {
+                $push: {
+                    users: userId
+                }
+            },
+            { new: true }
+        );
+    }
 }
 
 module.exports = ShelterRepository;

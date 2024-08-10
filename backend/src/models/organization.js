@@ -24,7 +24,13 @@ const OrganizationSchema = new mongoose.Schema({
     orgtype: {
         type: String,
         required: true
-    }
+    },
+    shelters: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Shelter'
+        }
+    ]
 }, { timestamps: true });
 
 const Organization = mongoose.model('Organization', OrganizationSchema);

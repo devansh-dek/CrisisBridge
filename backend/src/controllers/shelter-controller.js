@@ -134,11 +134,50 @@ const deleteShelter = async (req, res) => {
         });
     }
 };
+async function joinShelterAsOrganization(req, res) {
+    try {
+        const { shelterId, orgId, peopleCount } = req.body;
+        const shelter = await shelterService.joinShelterAsOrganization(shelterId, orgId, peopleCount);
+        return res.status(200).json({
+            success: true,
+            message: 'Organization joined the shelter successfully',
+            data: shelter
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to join shelter as organization',
+            error: error.message
+        });
+    }
+}
+
+async function joinShelterAsUser(req, res) {
+    try {
+        const { shelterId, userId } = req.body;
+        console.log("shelterid and userId are ", shelterId, " ", userId);
+        const shelter = await shelterService.joinShelterAsUser(shelterId, userId);
+        return res.status(200).json({
+            success: true,
+            message: 'User joined the shelter successfully',
+            data: shelter
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: 'Failed to join shelter as user',
+            error: error.message
+        });
+    }
+}
 
 module.exports = {
     createShelter,
     getShelter,
     getAllShelters,
     updateShelter,
-    deleteShelter
+    deleteShelter,
+    joinShelterAsOrganization,
+    joinShelterAsUser
 };

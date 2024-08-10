@@ -43,9 +43,32 @@ class ShelterService {
 
     async deleteShelter(id) {
         try {
-            return await this.shelterRepo.destroy(id);
+            const shelter = await this.shelterRepo.get(id);
+            if (!shelter) {
+                throw new Error('Shelter not found');
+            }
+            await this.shelterRepo.delete(id);
+            return { message: 'Shelter deleted successfully' };
         } catch (error) {
             console.error("Error in ShelterService.deleteShelter", error);
+            throw error;
+        }
+    }
+
+    async joinShelterAsOrganization(shelterId, orgId, peopleCount) {
+        try {
+            return await this.shelterRepo.joinShelterAsOrganization(shelterId, orgId, peopleCount);
+        } catch (error) {
+            console.error("Error in ShelterService.joinShelterAsOrganization", error);
+            throw error;
+        }
+    }
+
+    async joinShelterAsUser(shelterId, userId) {
+        try {
+            return await this.shelterRepo.joinShelterAsUser(shelterId, userId);
+        } catch (error) {
+            console.error("Error in ShelterService.joinShelterAsUser", error);
             throw error;
         }
     }

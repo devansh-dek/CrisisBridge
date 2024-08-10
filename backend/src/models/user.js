@@ -22,7 +22,13 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         required: true
-    }
+    },
+    shelters: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Shelter'
+        }
+    ]
 
 });
 
