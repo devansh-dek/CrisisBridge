@@ -175,39 +175,48 @@ function Game2() {
   };
 
   return (
-    <div className="flex justify-center items-center mt-20">
-      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
-        {showScore ? (
-          <div className="text-center">
-            <div className="text-2xl font-bold mb-4">
-              You scored {score} out of {questions.length}
-            </div>
-            <Button onClick={handlePlayAgain}>Play Again</Button>
-          </div>
-        ) : (
-          <>
-            <div className="mb-4">
-              <div className="text-xl font-semibold mb-4">
-                {questions[currentQuestion].questionText}
+    <div
+      style={{
+        backgroundImage: 'url("src/assets/gameback.jpg")',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        height : "100vh"
+      }}
+    >
+      <div className="flex justify-center items-center h-screen">
+        <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6">
+          {showScore ? (
+            <div className="text-center">
+              <div className="text-2xl font-bold pb-4">
+                You scored {score} out of {questions.length}
               </div>
-              <div className="flex flex-col gap-5">
-                {questions[currentQuestion].answerOptions.map(
-                  (answerOption, index) => (
-                    <Button
-                      variant="outline"
-                      key={index}
-                      onClick={() =>
-                        handleAnswerButtonClick(answerOption.isCorrect)
-                      }
-                    >
-                      {answerOption.answerText}
-                    </Button>
-                  )
-                )}
-              </div>
+              <Button onClick={handlePlayAgain}>Play Again</Button>
             </div>
-          </>
-        )}
+          ) : (
+            <>
+              <div className="pb-4">
+                <div className="text-xl font-semibold pb-4">
+                  {questions[currentQuestion].questionText}
+                </div>
+                <div className="flex flex-col gap-5">
+                  {questions[currentQuestion].answerOptions.map(
+                    (answerOption, index) => (
+                      <Button
+                        variant="outline"
+                        key={index}
+                        onClick={() =>
+                          handleAnswerButtonClick(answerOption.isCorrect)
+                        }
+                      >
+                        {answerOption.answerText}
+                      </Button>
+                    )
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
