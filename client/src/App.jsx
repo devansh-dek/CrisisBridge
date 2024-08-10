@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Login from "./components/login";
-import Signup from "./components/signup";
+import Register from "./components/register";
 import Layout from "./components/layout";
 import Awareness from "./pages/Awareness";
 import Disasters from "./pages/Disasters";
@@ -20,7 +20,7 @@ function App() {
           <Route path="map" element={<MapComponent />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Signup />} />
+          <Route path="register" element={<Register />} />
           <Route path="game" element={<InteractiveGame />} />
         </Route>
       </Routes>

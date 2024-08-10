@@ -35,7 +35,7 @@ const navlist = [
   },
   {
     title : "Register",
-    link: "/signup"
+    link: "/register"
   }
 ];
 
