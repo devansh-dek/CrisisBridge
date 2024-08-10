@@ -11,6 +11,9 @@ const corsOptions = {
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 };
+
+// Apply CORS middleware
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use('/api', apiRoutes);

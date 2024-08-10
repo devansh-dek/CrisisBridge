@@ -31,7 +31,7 @@ async function signup(req, res) {
 }
 
 const login = async (req, res) => {
-    const { username, password, email } = req.body;
+    const { password, email } = req.body;
     try {
         console.log("username ,pass and email are ", password, email);
         const response = await userService.login({ password, email });
