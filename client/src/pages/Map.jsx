@@ -22,7 +22,7 @@ function MapComponent() {
       method: "get",
       url: "http://localhost:3000/api/v1/shelter",
     }).then((response) => {
-      console.log(response.data.data)
+      setData(response.data.data)
     });
   }, []);
 
