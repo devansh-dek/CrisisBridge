@@ -14,7 +14,7 @@ function MapComponent() {
   const [data, setData] = useState([]);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY",
+    googleMapsApiKey: "",
   });
 
   useEffect(() => {
