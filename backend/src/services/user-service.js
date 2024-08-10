@@ -7,6 +7,15 @@ class UserServices {
     constructor() {
         this.userRepo = new UserRepository();
     }
+    async getById(email) {
+        try {
+            const response = await this.userRepo.findByEmail(email);
+            return response;
+
+        } catch (error) {
+            throw error;
+        }
+    }
 
     async signup(data) {
         try {

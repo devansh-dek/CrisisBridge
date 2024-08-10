@@ -29,7 +29,7 @@ const DraggableItem = ({ item }) => {
         <div
             ref={drag}
             className={`p-4 border rounded-lg cursor-pointer flex flex-col items-center justify-center ${isDragging ? 'opacity-50' : 'opacity-100'} bg-white shadow-lg`}
-            style={{ width: '120px', height: '120px' }} // Adjust size here
+            style={{ width: '120px', height: '120px' }}
         >
             <img src={item.image} alt={item.name} className="w-16 h-16 mb-2" />
             <span className="text-sm font-semibold text-center">{item.name}</span>
@@ -50,7 +50,7 @@ const DropZone = ({ onDrop, acceptedItems, isFull, message }) => {
         <div
             ref={drop}
             className={`relative p-4 border-dashed border-4 rounded-lg flex flex-col justify-start items-center ${isOver ? 'bg-green-100' : 'bg-gray-100'} ${isFull ? 'bg-red-100' : ''}`}
-            style={{ width: '360px', height: '360px' }} // Adjust size here
+            style={{ width: '360px', height: '360px' }}
         >
             <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url("src/assets/school-bag.png")' }}></div>
             <div className="relative text-center z-10 flex flex-col items-center justify-center">
@@ -130,6 +130,8 @@ function InteractiveGame() {
                 style={{ backgroundImage: 'url("src/assets/gameback.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
                 <h1 className="text-3xl font-bold mb-4 text-gray-950 ">Disaster Preparedness Kit</h1>
+                <div className="text-lg mb-2 text-gray-950 ">Drag and drop all that will be helpful for us at times of Disaster</div>
+
                 <div className="text-lg mb-2 text-gray-950 ">Points: {points}</div>
                 <div className="flex flex-col md:flex-row md:space-x-4 w-full justify-center items-center">
                     <div className="bg-white text-gray-800 p-4 rounded-md shadow-lg flex flex-col justify-center items-center mb-4">

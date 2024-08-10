@@ -84,9 +84,25 @@ const isAuthenticated = async (req, res) => {
         })
     }
 }
+const getById = async (req, res) => {
+    try {
+        const respone = await userService.getById(req.body.email);
+        return res.status(501).json({
+            response,
+            success: true
+        })
+    } catch (error) {
+        console.log("error is ", error);
+        return res.status(404).json({
+            success: false,
+            error: error.message
+        })
+    }
+}
 
 module.exports = {
     signup,
     login,
-    isAuthenticated
+    isAuthenticated,
+    getById
 }
