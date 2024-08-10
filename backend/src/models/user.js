@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    orgId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Organization'
+    },
     shelters: [
         {
             type: mongoose.Schema.Types.ObjectId,

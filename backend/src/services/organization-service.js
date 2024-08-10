@@ -1,12 +1,23 @@
 const OrganizationRepository = require('../repository/organization-repository');
-
+const UserRepository = require('../repository/user-repository.js')
 class OrganizationService {
     constructor() {
         this.organizationRepository = new OrganizationRepository();
+        this.userRepository = new UserRepository();
     }
 
     async createOrganization(data) {
-        return await this.organizationRepository.create(data);
+        try {
+
+            const response = await this.organizationRepository.create(data);
+            const user = await this.userRepository.update(data.admin, { orgId: response.id });
+
+            console.log("user is ", user);
+            return response;
+        }
+        catch (error) {
+            throw error;
+        }
     }
 
     async getOrganization(id) {
