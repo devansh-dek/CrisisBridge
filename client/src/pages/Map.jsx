@@ -14,7 +14,7 @@ function MapComponent() {
   const [data, setData] = useState([]);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "",
+    googleMapsApiKey: "AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY",
   });
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function MapComponent() {
       method: "get",
       url: "http://localhost:3000/api/v1/shelter",
     }).then((response) => {
-      setData(response.data.data);
+      console.log(response.data.data)
     });
   }, []);
 
