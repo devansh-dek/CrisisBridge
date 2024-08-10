@@ -1,22 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { DndProvider, useDrag, useDrop } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
-import { FaFirstAid, FaLightbulb, FaUtensils, FaBatteryFull, FaPuzzlePiece } from 'react-icons/fa';
-import { GiBatteries } from 'react-icons/gi';
 
 const ItemTypes = {
     ITEM: 'item',
 };
 
-
 const items = [
-    { id: 1, name: 'First Aid Kit', isEssential: true, icon: <FaFirstAid /> },
-    { id: 2, name: 'Flashlight', isEssential: true, icon: <FaLightbulb /> },
-    { id: 3, name: 'Stuffed Toy', isEssential: false, icon: <FaPuzzlePiece /> },
-    { id: 4, name: 'Canned Food', isEssential: true, icon: <FaUtensils /> },
-    { id: 5, name: 'Board Games', isEssential: false, icon: <FaPuzzlePiece /> },
-    { id: 6, name: 'Batteries', isEssential: true, icon: <FaBatteryFull /> },
+    { id: 1, name: 'First Aid Kit', isEssential: true, image: 'https://via.placeholder.com/40?text=First+Aid' },
+    { id: 2, name: 'Flashlight', isEssential: true, image: 'https://via.placeholder.com/40?text=Flashlight' },
+    { id: 3, name: 'Stuffed Toy', isEssential: false, image: 'https://via.placeholder.com/40?text=Stuffed+Toy' },
+    { id: 4, name: 'Canned Food', isEssential: true, image: 'https://via.placeholder.com/40?text=Canned+Food' },
+    { id: 5, name: 'Board Games', isEssential: false, image: 'https://via.placeholder.com/40?text=Board+Games' },
+    { id: 6, name: 'Batteries', isEssential: true, image: 'https://via.placeholder.com/40?text=Batteries' },
 ];
 
 const DraggableItem = ({ item }) => {
@@ -34,9 +30,7 @@ const DraggableItem = ({ item }) => {
             className={`p-2 my-2 border rounded-md cursor-pointer flex items-center ${isDragging ? 'opacity-50' : 'opacity-100'
                 } bg-white shadow-md`}
         >
-            {/* <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" /> */}
-            <span className="mr-2">{item.icon}</span> {item.name}
-
+            <img src={item.image} alt={item.name} className="w-10 h-10 mr-2" />
             {item.name}
         </div>
     );
