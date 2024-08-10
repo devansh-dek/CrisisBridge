@@ -1,14 +1,18 @@
-import { useState } from 'react'
-import { Button } from './components/ui/button'
+import { useState } from "react";
+import { Button } from "./components/ui/button";
+import { Route, Routes } from "react-router-dom";
+import Login from "./components/login";
+import Signup from "./components/signup";
 
 function App() {
-
   return (
     <>
-      <h1 className=' text-6xl'>hello</h1>
-      <Button>Click me</Button>
+      <Routes>
+        <Route path="/login" element={Login}/>
+        <Route path="/signup" element={Signup}/>
+      </Routes>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
