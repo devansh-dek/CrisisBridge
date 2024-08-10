@@ -10,6 +10,7 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
+import logo from "../assets/logo.png"
 
 const navlist = [
   {
@@ -25,19 +26,28 @@ const navlist = [
     link: "/awareness",
   },
   {
-    title: "Volunteer",
-    link: "/volunteer",
+    title: "Map",
+    link: "/map",
   },
   {
     title: "About us",
     link: "/about",
   },
+  {
+    title : "Register",
+    link: "/signup"
+  }
 ];
 
 function Navbar() {
   return (
     <NavigationMenu className=" m-1 ml-2">
       <NavigationMenuList>
+        <NavigationMenuItem>
+            <Link to="/">
+                <img className=" h-20" src={logo}></img>
+            </Link>
+        </NavigationMenuItem>
         {navlist.map((navItem) => {
           return (
             <NavigationMenuItem>

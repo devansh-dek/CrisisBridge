@@ -4,7 +4,7 @@ import Signup from "./components/signup";
 import Layout from "./components/layout";
 import Awareness from "./pages/Awareness";
 import Disasters from "./pages/Disasters";
-import Volunteer from "./pages/Volunteer";
+import MapComponent from "./pages/Map";
 import About from "./pages/About";
 import Home from "./pages/Home";
 
@@ -16,11 +16,11 @@ function App() {
           <Route index element={<Home />} />
           <Route path="awareness" element={<Awareness />} />
           <Route path="disasters" element={<Disasters />} />
-          <Route path="volunteer" element={<Volunteer />} />
+          <Route path="map" element={<MapComponent />} />
           <Route path="about" element={<About />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Signup />} />
         </Route>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/signup" element={<Signup/>}/>
       </Routes>
     </>
   );
