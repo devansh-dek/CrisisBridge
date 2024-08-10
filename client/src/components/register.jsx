@@ -30,7 +30,7 @@ const formSchema = z.object({
     orgtype: z.enum(['Property_Cleanup', 'Property_Rebuilding', 'Volunteers', 'Survivor_Services', 'Medical_Services'])
 });
 
-function Signup(){
+function Register(){
     const form = useForm({
         resolver: zodResolver(formSchema)
     });
@@ -147,4 +147,4 @@ function Signup(){
       )
 }
 
-export default Signup;
+export default Register;
