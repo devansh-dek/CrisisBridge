@@ -119,6 +119,8 @@ function InteractiveGame() {
         setMessage('');
         setPoints(0);
         setIsCompleted(false);
+        myMap.clear();
+
     };
 
     return (

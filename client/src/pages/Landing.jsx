@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import Home from './Home';
+import WhatWeDo from './WhatWeDo'; // Make sure the path is correct
 import { Button } from '@/components/ui/button';
 
 function Landing() {
@@ -37,6 +38,11 @@ function Landing() {
                         </Button>
                     </div>
                 </div>
+            </section>
+
+            {/* What We Do Section */}
+            <section className="bg-white py-16 px-6 md:px-12">
+                <WhatWeDo />
             </section>
 
             {/* Home Section */}

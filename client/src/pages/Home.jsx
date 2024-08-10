@@ -26,7 +26,7 @@ function Home() {
 
     return (
         <div className="bg-gray-100 min-h-screen py-10">
-            <div className="text-4xl font-bold text-center mb-10">Active Relief Sites</div>
+            <div className="text-4xl font-bold text-center mb-10">Active Shelter Zones</div>
             <div className="container mx-auto px-4">
                 <div className="flex flex-wrap justify-center gap-6">
                     {shelters.state === 'loading' ? (
