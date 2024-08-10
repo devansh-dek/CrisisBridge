@@ -15,6 +15,7 @@ import userState from './recoil/atoms/userState';
 import React, { useEffect } from 'react';
 import Shelter from "./pages/Shelter";
 import Game2 from "./pages/Game2";
+import { Toaster } from "@/components/ui/toaster";
 
 function App() {
   const setUser = useSetRecoilState(userState);
@@ -52,6 +53,7 @@ function App() {
           <Route path="game2" element={<Game2/>}/>
         </Route>
       </Routes>
+      <Toaster />
     </>
   );
 }

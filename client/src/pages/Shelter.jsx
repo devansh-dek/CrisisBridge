@@ -10,22 +10,60 @@ import axios from "axios";
 import { ArrowBigLeft, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover";  
+
+import userState from "@/recoil/atoms/userState";
+import { useToast } from "@/components/ui/use-toast";
 
 function Shelter() {
+    const { toast } = useToast();
+
     const currentShelter = useRecoilValue(currentShelterAtom);
-    console.log(currentShelter);
+    const user = useRecoilValue(userState);
+    console.log(user);
+
     let orgs = [];
     let users = [];
-    
+    let orgnames = [];
+
     if (currentShelter.organizations.length>0){
         orgs = currentShelter.organizations.map((org) => {
             return {name: org.orgId.orgname, people: org.peopleCount};
+        });
+        orgnames = currentShelter.organizations.map((org) => {
+            return (org.orgId.orgname);
         });
     }
     if (currentShelter.users.length>0){
         users = currentShelter.users.map((user) => {
             return (user.username);
         });
+    }
+
+    const [isVolunteerButton, setIsVolunteerButton] = useState((user.role == 'user' && !users.includes(user.username)) || (currentShelter.progress == 'Unclaimed' && user.role == 'org'))
+
+    async function addUserToShelter() {
+        try {
+            const payload = {
+                shelterId: currentShelter._id,
+                userId: user.userId,
+            }
+            console.log(currentShelter._id, user.userId);
+            const res = axios.post('http://localhost:3000/api/v1/shelter/join-as-user', payload);
+            console.log(res.data);
+            setIsVolunteerButton(false);
+            toast({
+                title: "Added individual to shelter",
+            });
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const [map, setMap] = useState(null);
@@ -65,10 +103,24 @@ function Shelter() {
             <div className="bg-white p-5 shadow-xl rounded-lg">
                 <div className="text-3xl font-semibold mb-5 flex justify-between items-center">
                     Volunteers 
-                    {currentShelter.progress == 'Unclaimed' && 
+                    {user.role == 'user' && isVolunteerButton ? 
                         (
-                            <Button className="rounded-xl">Volunteer to this shelter</Button>
-                        )
+                            <Button className="rounded-xl" onClick={addUserToShelter}>Volunteer to this shelter as an individual</Button>
+                        ) : currentShelter.progress == 'Unclaimed' && user.role == 'org' && isVolunteerButton ? 
+                        (
+                            <Popover>
+                                <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
+                                <PopoverContent>
+                                    <Label htmlFor="count">People Count</Label>
+                                    <Input
+                                        id="count"
+                                        defaultValue="1"
+                                        className="mt-5"
+                                    />
+                                    <Button className="mt-5">Submit</Button>
+                                </PopoverContent>
+                            </Popover>
+                        ) : ''
                     }
                 </div>
                 <div className="flex pb-5">
