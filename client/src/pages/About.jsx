@@ -154,24 +154,6 @@ function About() {
           </div>
         </section>
       </main>
-      <footer className="w-full py-12 md:py-24 bg-gray-900">
-        <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
-          <div className="space-y-3">
-            <img
-              src="/placeholder.svg"
-              width="140"
-              height="70"
-              alt="Logo"
-              className="mx-auto"
-              style={{ aspectRatio: "140/70", objectFit: "cover" }}
-            />
-            <div className="space-y-2 text-gray-50 md:text-base lg:text-sm xl:text-base dark:text-gray-950">
-              <p>123 Street Avenue, City</p>
-              <p>support@example.com</p>
-            </div>
-          </div>
-        </div>
-      </footer>
     </>
   );
 }
