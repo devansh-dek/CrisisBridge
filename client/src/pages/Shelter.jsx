@@ -46,9 +46,27 @@ function Shelter() {
         });
     }
 
-    const [isVolunteerButton, setIsVolunteerButton] = useState((user.role == 'user' && !users.includes(user.username)) || (currentShelter.progress == 'Unclaimed' && user.role == 'org'))
+    const [isVolunteerButton, setIsVolunteerButton] = useState(true);
 
     async function addUserToShelter() {
+        if (user.userId == 0) {
+            toast({
+                title: "Login to volunteer",
+            });
+            return;
+        }
+        else if (user.role == 'org' && !currentShelter.status == 'Unclaimed') {
+            toast({
+                title: "Shelter has already been claimed",
+            });
+            return;
+        }
+        else if (users.includes(user.username) && user.role == 'user') {
+            toast({
+                title: "User has already volunteered",
+            });
+            return;
+        }
         try {
             const payload = {
                 shelterId: currentShelter._id,
@@ -150,20 +168,28 @@ function Shelter() {
                         </div>
                     </div>
                 </div>
-                <div className="basis-1/3 bg-white p-5 h-[500px] rounded-lg shadow-xl">
-                    <div className="text-3xl font-semibold mb-5">Location</div>
-                    {!isLoaded ? (<div>Loading ....</div>) :
-                        (<GoogleMap
-                            mapContainerStyle={{ height: "80%", width: "100%", borderRadius: "10px" }}
-                            center={center}
-                            zoom={8}
-                            onLoad={(map) => setMap(map)}
-                        >
-                            <MarkerF
-                                title={`${currentShelter.name} ${currentShelter.description}`}
-                                position={{ lat: currentShelter.latitude, lng: currentShelter.longitude }}
-                            />
-                        </GoogleMap>)
+            </div>
+            <div className="bg-white p-5 shadow-xl rounded-lg">
+                <div className="text-3xl font-semibold mb-5 flex justify-between items-center">
+                    Volunteers
+                    {isVolunteerButton ? user.role == 'user' ?
+                        (
+                            <Button className="rounded-xl" onClick={addUserToShelter}>Volunteer to this shelter as an individual</Button>
+                        ) :
+                        (
+                            <Popover>
+                                <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
+                                <PopoverContent>
+                                    <Label htmlFor="count">People Count</Label>
+                                    <Input
+                                        id="count"
+                                        defaultValue="1"
+                                        className="mt-5"
+                                    />
+                                    <Button onClick={addUserToShelter} className="mt-5">Submit</Button>
+                                </PopoverContent>
+                            </Popover>
+                        ) : ''
                     }
                 </div>
             </div>
