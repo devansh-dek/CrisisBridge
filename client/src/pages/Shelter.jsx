@@ -144,7 +144,7 @@ function Shelter() {
     const [map, setMap] = useState(null);
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY",
+        googleMapsApiKey: "AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY",
     });
 
     const center = useMemo(() => ({ lat: currentShelter?.latitude, lng: currentShelter?.longitude }), [currentShelter?.latitude, currentShelter?.longitude]);
@@ -228,6 +228,22 @@ function Shelter() {
                         </div>
                     </div>
                 </div>
+                <div className="basis-1/3 bg-white p-5 h-[500px] rounded-lg shadow-xl">
+                    <div className="text-3xl font-semibold mb-5">Location</div>
+                    {!isLoaded ? (<div>Loading ....</div>) : 
+                        (<GoogleMap
+                            mapContainerStyle={{ height: "80%", width: "100%", borderRadius: "10px" }}
+                            center={center}
+                            zoom={8}
+                            onLoad={(map) => setMap(map)}
+                        >
+                            <MarkerF
+                                title={`${currentShelter.name} ${currentShelter.description}`}
+                                position={{ lat: currentShelter.latitude, lng: currentShelter.longitude }}
+                            />
+                        </GoogleMap>)
+                    }
+                    </div>
             </div>
         </div>
     )
