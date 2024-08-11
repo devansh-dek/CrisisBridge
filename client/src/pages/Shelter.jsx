@@ -144,7 +144,7 @@ function Shelter() {
     const [map, setMap] = useState(null);
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY",
+        googleMapsApiKey: "AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY",
     });
 
     const center = useMemo(() => ({ lat: currentShelter?.latitude, lng: currentShelter?.longitude }), [currentShelter?.latitude, currentShelter?.longitude]);
@@ -181,24 +181,24 @@ function Shelter() {
                             {user.role == 'user' ?
                                 (
                                     <Button className="rounded-xl" onClick={addUserToShelter}>Volunteer to this shelter as an individual</Button>
-                                ) : 
-                                    (
-                                        <Popover>
-                                            <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
-                                            <PopoverContent>
-                                                <Label htmlFor="count">People Count</Label>
-                                                <Input
-                                                    id="count"
-                                                    type="number"
-                                                    defaultValue="1"
-                                                    className="mt-5"
-                                                    value={count}
-                                                    onChange={(e) => { setCount(e.target.value) }}
-                                                />
-                                                <Button className="mt-5" onClick={() => { addOrgToShelter(count) }}>Submit</Button>
-                                            </PopoverContent>
-                                        </Popover>
-                                    )
+                                ) :
+                                (
+                                    <Popover>
+                                        <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
+                                        <PopoverContent>
+                                            <Label htmlFor="count">People Count</Label>
+                                            <Input
+                                                id="count"
+                                                type="number"
+                                                defaultValue="1"
+                                                className="mt-5"
+                                                value={count}
+                                                onChange={(e) => { setCount(e.target.value) }}
+                                            />
+                                            <Button className="mt-5" onClick={() => { addOrgToShelter(count) }}>Submit</Button>
+                                        </PopoverContent>
+                                    </Popover>
+                                )
                             }
                         </div>
                         <div className="flex pb-5">
