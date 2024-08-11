@@ -24,6 +24,8 @@ import { useToast } from "@/components/ui/use-toast";
 function Shelter() {
     const { toast } = useToast();
 
+    const [count, setCount] = useState(1);
+
     const currentShelter = useRecoilValue(currentShelterAtom);
     const user = useRecoilValue(userState);
     console.log(user);
@@ -84,6 +86,37 @@ function Shelter() {
         }
     }
 
+    async function addOrgToShelter(count) {
+        if (user.role == 'org' && !currentShelter.status == 'Unclaimed') {
+            toast({
+                title: "Shelter has already been claimed",
+            });
+            return;
+        }
+        const org = await axios.post('http://localhost:3000/api/v1/getbyemail', { email: user.email });
+        if (!(org.data?.response?.orgId?._id)) {
+            toast({
+                title: "First register an org in order to volunteer",
+            });
+            return;
+        }
+        try {
+            const payload = {
+                shelterId: currentShelter._id,
+                orgId: org.data.response.orgId._id,
+                peopleCount: count
+            }
+            const res = axios.post('http://localhost:3000/api/v1/shelter/join-as-org', payload);
+            console.log(res.data);
+            setIsVolunteerButton(false);
+            toast({
+                title: "Added org to shelter",
+            });
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     const [map, setMap] = useState(null);
 
     const { isLoaded } = useLoadScript({
@@ -130,12 +163,14 @@ function Shelter() {
                                             <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
                                             <PopoverContent>
                                                 <Label htmlFor="count">People Count</Label>
-                                                <Input
+                                                <input
                                                     id="count"
                                                     defaultValue="1"
                                                     className="mt-5"
+                                                    value={count}
+                                                    onChange={(e) => {setCount(e.target.value)}}
                                                 />
-                                                <Button className="mt-5">Submit</Button>
+                                                <Button className="mt-5" onClick={() => {addOrgToShelter(count)}}>Submit</Button>
                                             </PopoverContent>
                                         </Popover>
                                     ) : ''
@@ -167,30 +202,6 @@ function Shelter() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className="bg-white p-5 shadow-xl rounded-lg">
-                <div className="text-3xl font-semibold mb-5 flex justify-between items-center">
-                    Volunteers
-                    {isVolunteerButton ? user.role == 'user' ?
-                        (
-                            <Button className="rounded-xl" onClick={addUserToShelter}>Volunteer to this shelter as an individual</Button>
-                        ) :
-                        (
-                            <Popover>
-                                <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
-                                <PopoverContent>
-                                    <Label htmlFor="count">People Count</Label>
-                                    <Input
-                                        id="count"
-                                        defaultValue="1"
-                                        className="mt-5"
-                                    />
-                                    <Button onClick={addUserToShelter} className="mt-5">Submit</Button>
-                                </PopoverContent>
-                            </Popover>
-                        ) : ''
-                    }
                 </div>
             </div>
         </div>

@@ -50,8 +50,16 @@ function Register(){
             return;
         }
         try {
-            const res = await axios.post('http://localhost:3000/api/v1/organization', values);
-            console.log(res.data);
+            const org = await axios.post('http://localhost:3000/api/v1/getbyemail', { email: user.email });
+            if (org.data?.response?.orgId?._id) {
+                toast({
+                    'title': 'You are already registered with an org'
+                });
+            }
+            else {
+                const res = await axios.post('http://localhost:3000/api/v1/organization', values);
+                console.log(res.data);
+            }
         } catch (error) {
             console.error(error);
         }
