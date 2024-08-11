@@ -9,17 +9,17 @@ const WhatWeDo = () => {
         {
             title: 'Connect Organizations and Volunteers',
             description: 'We provide a platform that helps organizations and volunteers connect to assist individuals affected by natural calamities.',
-            image: 'src/assets/contribute.jpg',
+            image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/contribute.jpg?alt=media&token=5d3b6952-5b17-471b-932a-d08a2eb14ac9',
         },
         {
             title: 'Avoid Hassle ,Volunteer',
             description: 'Avoid all hassle of joining an organization , just locate your nearest shelter and contribute to it',
-            image: 'src/assets/volunteers.jpg',
+            image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/volunteers.jpg?alt=media&token=30e96d41-d7c2-4084-8af2-655b7a1515d1',
         },
         {
             title: 'Interactive Game & Educational Quiz',
             description: 'Engage with our interactive game made for kids simulates disaster preparedness, also take our quiz to know you readness for emergency.',
-            image: 'src/assets/quiz.jpg',
+            image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/quiz.jpg?alt=media&token=da16329c-9227-4c86-9470-8083fcd24646',
         },
     ];
 

@@ -18,7 +18,7 @@ function Landing() {
             <section className="relative flex-grow">
                 <div
                     className="absolute inset-0 bg-cover bg-center"
-                    style={{ backgroundImage: 'url(/src/assets/firemen.jpeg)' }}
+                    style={{ backgroundImage: 'url(https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/firemen.jpeg?alt=media&token=c0448d65-5667-46b8-aee7-7e0ec4f3fd71)' }}
                 >
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                 </div>

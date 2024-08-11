@@ -14,7 +14,7 @@ const disasterData = [
       'Avoid standing in doorways.',
       'Do not run outside during shaking.'
     ],
-    image: 'src/assets/earthquake.png'
+    image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/earthquake.png?alt=media&token=302b804b-e07d-4029-9325-dbbcf853cfec'
   },
   {
     type: 'Flood',
@@ -28,7 +28,7 @@ const disasterData = [
       'Avoid using electrical appliances near water.',
       'Do not return to your home until it is declared safe.'
     ],
-    image: 'src/assets/flooded-house.png'
+    image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/flooded-house.png?alt=media&token=f5a808b2-7a7f-4870-9eb4-1dff63a2a7d4'
   },
   {
     type: 'Fire',
@@ -42,7 +42,7 @@ const disasterData = [
       'Avoid opening windows to escape smoke.',
       'Do not use elevators during a fire.'
     ],
-    image: 'src/assets/fire.png'
+    image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/fire.png?alt=media&token=43166a77-6c45-4d47-afd2-d6425480c5ef'
   }
 ];
 

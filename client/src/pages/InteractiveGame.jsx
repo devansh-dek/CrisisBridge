@@ -8,25 +8,25 @@ const ItemTypes = {
 const myMap = new Map();
 
 const items = [
-    { id: 1, name: 'First Aid Kit', isEssential: true, image: '/src/assets/first-aid-kid.png', mode: 'normal' },
-    { id: 2, name: 'Flashlight', isEssential: true, image: '/src/assets/flashlight.png', mode: 'normal' },
-    { id: 3, name: 'Stuffed Toy', isEssential: false, image: '/src/assets/teddy-bear.png', mode: 'normal' },
-    { id: 4, name: 'Canned Food', isEssential: true, image: '/src/assets/canned-food.png', mode: 'normal' },
-    { id: 5, name: 'Board Games', isEssential: false, image: '/src/assets/board-game.png', mode: 'normal' },
-    { id: 6, name: 'Batteries', isEssential: true, image: '/src/assets/battery.png', mode: 'normal' },
-    { id: 7, name: 'Earthquake Kit', isEssential: true, image: '/src/assets/medical.png', mode: 'earthquake' },
-    { id: 8, name: 'Helmet', isEssential: true, image: '/src/assets/helmet.png', mode: 'earthquake' },
-    { id: 14, name: 'Use Lift', isEssential: true, image: '/src/assets/elevator.png', mode: 'earthquake' },
-    { id: 15, name: 'Toys', isEssential: false, image: '/src/assets/board-game.png', mode: 'earthquake' },
-    { id: 16, name: 'OpenGround', isEssential: true, image: '/src/assets/helmet.png', mode: 'earthquake' },
+    { id: 1, name: 'First Aid Kit', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/first-aid-kid.png?alt=media&token=f1f0209a-8691-4954-a7ae-e66d3945e823', mode: 'normal' },
+    { id: 2, name: 'Flashlight', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/flashlight.png?alt=media&token=cdc0409a-172a-498e-af36-c319409d148b', mode: 'normal' },
+    { id: 3, name: 'Stuffed Toy', isEssential: false, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/board-game.png?alt=media&token=ac29eb17-b0d3-4a00-bfca-0ce525edcd9c', mode: 'normal' },
+    { id: 4, name: 'Canned Food', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/canned-food.png?alt=media&token=f6e9a965-4fca-4c31-b04e-77dc796df6ce', mode: 'normal' },
+    { id: 5, name: 'Board Games', isEssential: false, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/board-game.png?alt=media&token=ac29eb17-b0d3-4a00-bfca-0ce525edcd9c', mode: 'normal' },
+    { id: 6, name: 'Batteries', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/battery.png?alt=media&token=a0566810-bd79-470a-817d-30bc1f827ae4', mode: 'normal' },
+    { id: 7, name: 'Earthquake Kit', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/first-aid-kid.png?alt=media&token=f1f0209a-8691-4954-a7ae-e66d3945e823', mode: 'earthquake' },
+    { id: 8, name: 'Helmet', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/helmet.png?alt=media&token=cb221ecd-c077-4b6a-ac73-2505a26a4778', mode: 'earthquake' },
+    { id: 14, name: 'Use Lift', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/elevator.png?alt=media&token=d46a8643-6d50-4ee0-8bf4-7857c00243cd', mode: 'earthquake' },
+    { id: 15, name: 'Toys', isEssential: false, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/board-game.png?alt=media&token=ac29eb17-b0d3-4a00-bfca-0ce525edcd9c', mode: 'earthquake' },
+    { id: 16, name: 'OpenGround', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/earthquake.png?alt=media&token=302b804b-e07d-4029-9325-dbbcf853cfec', mode: 'earthquake' },
 
 
-    { id: 9, name: 'Life Jacket', isEssential: true, image: '/src/assets/life-jacket.png', mode: 'flood' },
-    { id: 10, name: 'Toys', isEssential: false, image: '/src/assets/board-game.png', mode: 'flood' },
-    { id: 11, name: 'Food', isEssential: true, image: '/src/assets/canned-food.png', mode: 'flood' },
-    { id: 12, name: 'rope', isEssential: true, image: '/src/assets/rope.png', mode: 'flood' },
+    { id: 9, name: 'Life Jacket', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/life-jacket.png?alt=media&token=86016633-8182-4c9e-af4f-a52cde092b0d', mode: 'flood' },
+    { id: 10, name: 'Toys', isEssential: false, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/board-game.png?alt=media&token=ac29eb17-b0d3-4a00-bfca-0ce525edcd9c', mode: 'flood' },
+    { id: 11, name: 'Food', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/canned-food.png?alt=media&token=f6e9a965-4fca-4c31-b04e-77dc796df6ce', mode: 'flood' },
+    { id: 12, name: 'rope', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/rope.png?alt=media&token=bc4af7c7-4f76-40d0-8507-de3d6b632522', mode: 'flood' },
 
-    { id: 13, name: 'Waterproof Bag', isEssential: true, image: '/src/assets/dry-bag.png', mode: 'flood' },
+    { id: 13, name: 'Waterproof Bag', isEssential: true, image: 'https://firebasestorage.googleapis.com/v0/b/altertify1.appspot.com/o/dry-bag.png?alt=media&token=d50d0891-b97f-42f6-956d-13a2b7ad972e', mode: 'flood' },
 ];
 
 const DraggableItem = ({ item }) => {
