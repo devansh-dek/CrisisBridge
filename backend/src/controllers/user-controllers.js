@@ -86,7 +86,7 @@ const isAuthenticated = async (req, res) => {
 }
 const getById = async (req, res) => {
     try {
-        const respone = await userService.getById(req.body.email);
+        const response = await userService.getById(req.body.email);
         return res.status(501).json({
             response,
             success: true
