@@ -37,7 +37,7 @@ function Login() {
   async function onSubmit(values) {
     console.log(JSON.stringify(values))
     try {
-      const response = await axios.post('https://crisisbridge.onrender.com/api/v1/login', values, { withCredentials: true });
+      const response = await axios.post('https://codefuryhackathonproject.onrender.com/api/v1/login', values, { withCredentials: true });
       if (response.data.exist === false) {
         console.log("User doesn't exist");
         return;
