@@ -27,8 +27,8 @@ const navlist = [
     link: "/map",
   },
   {
-    title: "About us",
-    link: "/about",
+    title: "Awareness",
+    link: "/awareness",
   },
   {
     title: "Register Organization",
