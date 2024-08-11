@@ -31,14 +31,18 @@ const navlist = [
     link: "/about",
   },
   {
-    title: "Register",
+    title: "Register Organization",
     link: "/register",
+  },
+  {
+    title: "Register as an individual",
+    link: "/signup",
   },
 ];
 
 function Navbar() {
   return (
-    <>
+    <div className="flex items-center justify-between">
       <NavigationMenu className=" m-1 ml-2">
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -59,12 +63,12 @@ function Navbar() {
           })}
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="fixed top-5 right-5">
+      <div className="mr-10">
         <Link to="/game2">
          <Button className="rounded-3xl w-full text-xl">Take a quiz!</Button>
         </Link>
       </div>
-    </>
+    </div>
   );
 }
 

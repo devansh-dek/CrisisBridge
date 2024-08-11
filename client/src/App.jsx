@@ -47,7 +47,7 @@ function App() {
           <Route path="map" element={<MapComponent />} />
           <Route path="about" element={<About />} />
           <Route path="login" element={<Login />} />
-          <Route path="register" element={<Signup />} />
+          <Route path="register" element={<Register />} />
           <Route path="game" element={<InteractiveGame />} />
           <Route path="signup" element={<Signup />} />
           <Route path="shelter" element={<Shelter />} />

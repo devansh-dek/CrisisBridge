@@ -20,6 +20,10 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";  
+import { useRecoilValue } from "recoil";
+import userState from "@/recoil/atoms/userState";
+import { useToast } from "./ui/use-toast";
+import axios from "axios";
  
 const formSchema = z.object({
     orgname: z.string(),
@@ -31,12 +35,34 @@ const formSchema = z.object({
 });
 
 function Register(){
+    const user = useRecoilValue(userState);
+    const { toast } = useToast();
+
     const form = useForm({
         resolver: zodResolver(formSchema)
     });
 
-    function onSubmit(values) {
-        console.log(JSON.stringify(values));
+    async function onSubmit(values) {
+        if (user.userId == 0) {
+            toast({
+                'title': 'Please first login as an individual to register orgs'
+            });
+            return;
+        }
+        try {
+            const org = await axios.post('http://localhost:3000/api/v1/getbyemail', { email: user.email });
+            if (org.data?.response?.orgId?._id) {
+                toast({
+                    'title': 'You are already registered with an org'
+                });
+            }
+            else {
+                const res = await axios.post('http://localhost:3000/api/v1/organization', values);
+                console.log(res.data);
+            }
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (
