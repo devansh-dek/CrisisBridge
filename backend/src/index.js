@@ -11,13 +11,14 @@ const corsOptions = {
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 };
+const cookieParser = require('cookie-parser');
 
 // Apply CORS middleware
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use(cookieParser());
 app.use('/api', apiRoutes);
-
 
 const serverSetupandStart = async () => {
     app.listen(PORT, async () => {
