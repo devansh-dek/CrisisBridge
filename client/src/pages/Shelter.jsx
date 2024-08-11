@@ -8,7 +8,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 import { ArrowBigLeft, ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -100,6 +100,12 @@ function Shelter() {
             });
             return;
         }
+        else if (orgnames.includes(org.data.response.orgId.orgname)) {
+            toast({
+                title: "Org has been already volunteered",
+            });
+            return;
+        }
         try {
             const payload = {
                 shelterId: currentShelter._id,
@@ -154,10 +160,10 @@ function Shelter() {
                     <div className="bg-white p-5 shadow-xl rounded-lg">
                         <div className="text-3xl font-semibold mb-5 flex justify-between items-center">
                             Volunteers
-                            {user.role == 'user' && isVolunteerButton ?
+                            {user.role == 'user' ?
                                 (
                                     <Button className="rounded-xl" onClick={addUserToShelter}>Volunteer to this shelter as an individual</Button>
-                                ) : currentShelter.progress == 'Unclaimed' && user.role == 'org' && isVolunteerButton ?
+                                ) : 
                                     (
                                         <Popover>
                                             <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
@@ -173,7 +179,7 @@ function Shelter() {
                                                 <Button className="mt-5" onClick={() => {addOrgToShelter(count)}}>Submit</Button>
                                             </PopoverContent>
                                         </Popover>
-                                    ) : ''
+                                    )
                             }
                         </div>
                         <div className="flex pb-5">
