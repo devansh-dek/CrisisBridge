@@ -21,7 +21,7 @@ function MapComponent() {
   useEffect(() => {
     axios({
       method: "get",
-      url: "https://crisisbridge.onrender.com/api/v1/shelter",
+      url: "https://codefuryhackathonproject.onrender.com/api/v1/shelter",
     }).then((response) => {
       setData(response.data.data)
     });

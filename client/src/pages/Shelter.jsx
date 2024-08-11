@@ -34,7 +34,7 @@ function Shelter() {
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.get('https://crisisbridge.onrender.com/api/v1/isAuthenticated', { withCredentials: true });
+                const response = await axios.get('https://codefuryhackathonproject.onrender.com/api/v1/isAuthenticated', { withCredentials: true });
                 console.log("fetchuser response is ", response);
                 setUser({
                     userId: response.data.response.id,
@@ -93,7 +93,7 @@ function Shelter() {
                 userId: user.userId,
             };
             console.log(currentShelter._id, user.userId);
-            const res = await axios.post('https://crisisbridge.onrender.com/api/v1/shelter/join-as-user', payload);
+            const res = await axios.post('https://codefuryhackathonproject.onrender.com/api/v1/shelter/join-as-user', payload);
             console.log(res.data);
             setIsVolunteerButton(false);
             toast({
@@ -111,7 +111,7 @@ function Shelter() {
             });
             return;
         }
-        const org = await axios.post('https://crisisbridge.onrender.com/api/v1/getbyemail', { email: user.email });
+        const org = await axios.post('https://codefuryhackathonproject.onrender.com/api/v1/getbyemail', { email: user.email });
         if (!(org.data?.response?.orgId?._id)) {
             toast({
                 title: "First register an org in order to volunteer",
@@ -130,7 +130,7 @@ function Shelter() {
                 orgId: org.data.response.orgId._id,
                 peopleCount: count,
             };
-            const res = await axios.post('https://crisisbridge.onrender.com/api/v1/shelter/join-as-org', payload);
+            const res = await axios.post('https://codefuryhackathonproject.onrender.com/api/v1/shelter/join-as-org', payload);
             console.log(res.data);
             setIsVolunteerButton(false);
             toast({
