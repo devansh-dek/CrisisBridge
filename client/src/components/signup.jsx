@@ -42,7 +42,7 @@ function Signup() {
       else {
         values = { ...values, role: 'user'};
       }
-      const response = await axios.post('http://localhost:3000/api/v1/signup', values, { withCredentials: true });
+      const response = await axios.post('https://crisisbridge.onrender.com/api/v1/signup', values, { withCredentials: true });
       console.log(response.data);
       navigate('/login');
     } catch (error) {

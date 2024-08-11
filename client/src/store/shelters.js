@@ -4,7 +4,7 @@ import { selector } from "recoil";
 export const sheltersAtom = selector({
     key: "sheltersAtom",
     get: async ({get}) => {
-        const response = await axios.get('http://localhost:3000/api/v1/shelter');
+        const response = await axios.get('https://crisisbridge.onrender.com/api/v1/shelter');
         return response?.data?.data;
     },
 });

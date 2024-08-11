@@ -23,7 +23,7 @@ function App() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/isAuthenticated', { withCredentials: true });
+        const response = await axios.get('https://crisisbridge.onrender.com/api/v1/isAuthenticated', { withCredentials: true });
         console.log("fetchuser response is ", response);
         setUser({
           userId: response.data.response.id,

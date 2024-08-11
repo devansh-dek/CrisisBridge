@@ -50,14 +50,14 @@ function Register(){
             return;
         }
         try {
-            const org = await axios.post('http://localhost:3000/api/v1/getbyemail', { email: user.email });
+            const org = await axios.post('https://crisisbridge.onrender.com/api/v1/getbyemail', { email: user.email });
             if (org.data?.response?.orgId?._id) {
                 toast({
                     'title': 'You are already registered with an org'
                 });
             }
             else {
-                const res = await axios.post('http://localhost:3000/api/v1/organization', values);
+                const res = await axios.post('https://crisisbridge.onrender.com/api/v1/organization', values);
                 console.log(res.data);
             }
         } catch (error) {

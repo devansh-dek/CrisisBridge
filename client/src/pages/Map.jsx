@@ -15,13 +15,13 @@ function MapComponent() {
   const [data, setData] = useState([]);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY,
+    googleMapsApiKey: 'AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY',
   });
 
   useEffect(() => {
     axios({
       method: "get",
-      url: "http://localhost:3000/api/v1/shelter",
+      url: "https://crisisbridge.onrender.com/api/v1/shelter",
     }).then((response) => {
       setData(response.data.data)
     });
