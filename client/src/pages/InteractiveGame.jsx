@@ -8,12 +8,25 @@ const ItemTypes = {
 const myMap = new Map();
 
 const items = [
-    { id: 1, name: 'First Aid Kit', isEssential: true, image: 'src/assets/first-aid-kid.png' },
-    { id: 2, name: 'Flashlight', isEssential: true, image: 'src/assets/flashlight.png' },
-    { id: 3, name: 'Stuffed Toy', isEssential: false, image: 'src/assets/teddy-bear.png' },
-    { id: 4, name: 'Canned Food', isEssential: true, image: 'src/assets/canned-food.png' },
-    { id: 5, name: 'Board Games', isEssential: false, image: 'src/assets/board-game.png' },
-    { id: 6, name: 'Batteries', isEssential: true, image: 'src/assets/battery.png' },
+    { id: 1, name: 'First Aid Kit', isEssential: true, image: '/src/assets/first-aid-kid.png', mode: 'normal' },
+    { id: 2, name: 'Flashlight', isEssential: true, image: '/src/assets/flashlight.png', mode: 'normal' },
+    { id: 3, name: 'Stuffed Toy', isEssential: false, image: '/src/assets/teddy-bear.png', mode: 'normal' },
+    { id: 4, name: 'Canned Food', isEssential: true, image: '/src/assets/canned-food.png', mode: 'normal' },
+    { id: 5, name: 'Board Games', isEssential: false, image: '/src/assets/board-game.png', mode: 'normal' },
+    { id: 6, name: 'Batteries', isEssential: true, image: '/src/assets/battery.png', mode: 'normal' },
+    { id: 7, name: 'Earthquake Kit', isEssential: true, image: '/src/assets/medical.png', mode: 'earthquake' },
+    { id: 8, name: 'Helmet', isEssential: true, image: '/src/assets/helmet.png', mode: 'earthquake' },
+    { id: 14, name: 'Use Lift', isEssential: true, image: '/src/assets/elevator.png', mode: 'earthquake' },
+    { id: 15, name: 'Toys', isEssential: false, image: '/src/assets/board-game.png', mode: 'earthquake' },
+    { id: 16, name: 'OpenGround', isEssential: true, image: '/src/assets/helmet.png', mode: 'earthquake' },
+
+
+    { id: 9, name: 'Life Jacket', isEssential: true, image: '/src/assets/life-jacket.png', mode: 'flood' },
+    { id: 10, name: 'Toys', isEssential: false, image: '/src/assets/board-game.png', mode: 'flood' },
+    { id: 11, name: 'Food', isEssential: true, image: '/src/assets/canned-food.png', mode: 'flood' },
+    { id: 12, name: 'rope', isEssential: true, image: '/src/assets/rope.png', mode: 'flood' },
+
+    { id: 13, name: 'Waterproof Bag', isEssential: true, image: '/src/assets/dry-bag.png', mode: 'flood' },
 ];
 
 const DraggableItem = ({ item }) => {
@@ -37,7 +50,7 @@ const DraggableItem = ({ item }) => {
     );
 };
 
-const DropZone = ({ onDrop, acceptedItems, isFull, message }) => {
+const DropZone = ({ onDrop, acceptedItems, isFull, message, gameMode }) => {
     const [{ isOver }, drop] = useDrop(() => ({
         accept: ItemTypes.ITEM,
         drop: (item) => onDrop(item.id),
@@ -52,7 +65,7 @@ const DropZone = ({ onDrop, acceptedItems, isFull, message }) => {
             className={`relative p-4 border-dashed border-4 rounded-lg flex flex-col justify-start items-center ${isOver ? 'bg-green-100' : 'bg-gray-100'} ${isFull ? 'bg-red-100' : ''}`}
             style={{ width: '360px', height: '360px' }}
         >
-            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: 'url("src/assets/school-bag.png")' }}></div>
+            <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('/src/assets/school-bag.png]')` }}></div>
             <div className="relative text-center z-10 flex flex-col items-center justify-center">
                 {acceptedItems.length === 0 ? (
                     <p className="text-gray-600 text-xs">Drop items here</p>
@@ -77,9 +90,15 @@ function InteractiveGame() {
     const [message, setMessage] = useState('');
     const [points, setPoints] = useState(0);
     const [isCompleted, setIsCompleted] = useState(false);
+    const [gameMode, setGameMode] = useState('normal');
 
     const handleDrop = (id) => {
         const droppedItem = items.find((item) => item.id === id);
+        console.log("dropped item is ", droppedItem);
+        if (!droppedItem) {
+            setMessage('Invalid item for this mode.');
+            return;
+        }
         if (myMap.has(droppedItem.id)) {
             setMessage('Cannot add the same item more than once.');
             return;
@@ -106,7 +125,9 @@ function InteractiveGame() {
             setMessage('Great! Keep going!');
         }
     };
-
+    useEffect(() => {
+        resetGame();
+    }, [gameMode])
     useEffect(() => {
         if (acceptedItems.length === 4) {
             setMessage('Success! You have completed your kit.');
@@ -115,29 +136,40 @@ function InteractiveGame() {
     }, [acceptedItems]);
 
     const resetGame = () => {
+        console.log("Mymap is ", myMap);
+        myMap.clear();
+
         setAcceptedItems([]);
         setMessage('');
         setPoints(0);
         setIsCompleted(false);
-        myMap.clear();
-
     };
+
+    const filteredItems = items.filter(item => item.mode === gameMode);
 
     return (
         <DndProvider backend={HTML5Backend}>
             <div
                 className="min-h-screen flex flex-col items-center justify-center text-white p-4"
-                style={{ backgroundImage: 'url("src/assets/gameback.jpg")', backgroundSize: 'cover', backgroundPosition: 'center' }}
+                style={{ backgroundImage: `url('/src/assets/gameback.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center' }}
             >
-                <h1 className="text-3xl font-bold mb-4 text-gray-950 ">Disaster Preparedness Kit</h1>
-                <div className="text-lg mb-2 text-gray-950 ">Drag and drop all that will be helpful for us at times of Disaster</div>
+                <h1 className="text-3xl font-bold mb-4 text-gray-950">Disaster Preparedness Kit</h1>
+                <div className="text-lg mb-2 text-gray-950">Drag and drop all that will be helpful for us at times of Disaster</div>
 
-                <div className="text-lg mb-2 text-gray-950 ">Points: {points}</div>
+                <div className="text-lg mb-2 text-gray-950">Points: {points}</div>
+
+                {/* Mode Selector */}
+                <div className="mb-4">
+                    <button onClick={() => setGameMode('normal')} className="bg-gray-700 text-white p-2 rounded">Normal Mode</button>
+                    <button onClick={() => setGameMode('earthquake')} className="bg-gray-700 text-white p-2 rounded ml-2">Earthquake Mode</button>
+                    <button onClick={() => setGameMode('flood')} className="bg-gray-700 text-white p-2 rounded ml-2">Flood Mode</button>
+                </div>
+
                 <div className="flex flex-col md:flex-row md:space-x-4 w-full justify-center items-center">
                     <div className="bg-white text-gray-800 p-4 rounded-md shadow-lg flex flex-col justify-center items-center mb-4">
                         <h2 className="text-lg font-semibold mb-4">Items</h2>
                         <div className="flex flex-wrap justify-center items-center w-[20rem]">
-                            {items.map((item) => (
+                            {filteredItems.map((item) => (
                                 <DraggableItem key={item.id} item={item} />
                             ))}
                         </div>
@@ -148,21 +180,17 @@ function InteractiveGame() {
                             onDrop={handleDrop}
                             acceptedItems={acceptedItems}
                             isFull={acceptedItems.length >= 4}
+                            message={message}
+                            gameMode={gameMode}
                         />
                     </div>
                 </div>
-                {message && (
-                    <div className="mt-4 p-4 rounded-md bg-yellow-500 text-gray-800 text-sm">
-                        {message}
-                    </div>
-                )}
+
                 {isCompleted && (
-                    <button
-                        onClick={resetGame}
-                        className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                    >
-                        Play Again
-                    </button>
+                    <div className="bg-green-200 text-green-800 p-4 rounded-md shadow-lg">
+                        <p className="text-lg font-semibold">Congratulations! You've completed the kit for {gameMode} mode.</p>
+                        <button onClick={resetGame} className="bg-gray-700 text-white p-2 rounded mt-2">Play Again</button>
+                    </div>
                 )}
             </div>
         </DndProvider>
