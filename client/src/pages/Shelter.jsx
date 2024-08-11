@@ -17,6 +17,7 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from "@/components/ui/popover";
+import { useSetRecoilState } from 'recoil';
 
 import userState from "@/recoil/atoms/userState";
 import { useToast } from "@/components/ui/use-toast";
@@ -28,13 +29,31 @@ function Shelter() {
 
     const currentShelter = useRecoilValue(currentShelterAtom);
     const user = useRecoilValue(userState);
-    console.log(user);
     console.log(user, "is our user");
+    const setUser = useSetRecoilState(userState);
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            try {
+                const response = await axios.get('http://localhost:3000/api/v1/isAuthenticated', { withCredentials: true });
+                console.log("fetchuser response is ", response);
+                setUser({
+                    userId: response.data.response.id,
+                    username: response.data.response.username,
+                    email: response.data.response.email,
+                    isAuthenticated: true,
+                });
+            } catch (error) {
+                console.error('Error fetching user details', error);
+            }
+        };
+
+        fetchUserDetails();
+    }, [setUser]);
     let orgs = [];
     let users = [];
     let orgnames = [];
 
-    if (currentShelter.organizations.length > 0) {
+    if (currentShelter?.organizations?.length > 0) {
         orgs = currentShelter.organizations.map((org) => {
             return { name: org.orgId.orgname, people: org.peopleCount };
         });
@@ -42,7 +61,8 @@ function Shelter() {
             return (org.orgId.orgname);
         });
     }
-    if (currentShelter.users.length > 0) {
+
+    if (currentShelter?.users?.length > 0) {
         users = currentShelter.users.map((user) => {
             return (user.username);
         });
@@ -56,14 +76,12 @@ function Shelter() {
                 title: "Login to volunteer",
             });
             return;
-        }
-        else if (user.role == 'org' && !currentShelter.status == 'Unclaimed') {
+        } else if (user.role == 'org' && !currentShelter?.status == 'Unclaimed') {
             toast({
                 title: "Shelter has already been claimed",
             });
             return;
-        }
-        else if (users.includes(user.username) && user.role == 'user') {
+        } else if (users.includes(user.username) && user.role == 'user') {
             toast({
                 title: "User has already volunteered",
             });
@@ -73,9 +91,9 @@ function Shelter() {
             const payload = {
                 shelterId: currentShelter._id,
                 userId: user.userId,
-            }
+            };
             console.log(currentShelter._id, user.userId);
-            const res = axios.post('http://localhost:3000/api/v1/shelter/join-as-user', payload);
+            const res = await axios.post('http://localhost:3000/api/v1/shelter/join-as-user', payload);
             console.log(res.data);
             setIsVolunteerButton(false);
             toast({
@@ -87,7 +105,7 @@ function Shelter() {
     }
 
     async function addOrgToShelter(count) {
-        if (user.role == 'org' && !currentShelter.status == 'Unclaimed') {
+        if (user.role == 'org' && !currentShelter?.status == 'Unclaimed') {
             toast({
                 title: "Shelter has already been claimed",
             });
@@ -110,9 +128,9 @@ function Shelter() {
             const payload = {
                 shelterId: currentShelter._id,
                 orgId: org.data.response.orgId._id,
-                peopleCount: count
-            }
-            const res = axios.post('http://localhost:3000/api/v1/shelter/join-as-org', payload);
+                peopleCount: count,
+            };
+            const res = await axios.post('http://localhost:3000/api/v1/shelter/join-as-org', payload);
             console.log(res.data);
             setIsVolunteerButton(false);
             toast({
@@ -126,10 +144,10 @@ function Shelter() {
     const [map, setMap] = useState(null);
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: "AIzaSyAPaxWzHdEchDySEbDuhlwlW4KcoorTevY",
+        googleMapsApiKey: "YOUR_GOOGLE_MAPS_API_KEY",
     });
 
-    const center = useMemo(() => ({ lat: currentShelter.latitude, lng: currentShelter.longitude }), [currentShelter.latitude, currentShelter.longitude]);
+    const center = useMemo(() => ({ lat: currentShelter?.latitude, lng: currentShelter?.longitude }), [currentShelter?.latitude, currentShelter?.longitude]);
 
     return (
         <div className="bg-zinc-100 min-h-full w-full">
@@ -141,19 +159,19 @@ function Shelter() {
                         <div className="flex flex-wrap mb-5">
                             <div className="basis-1/2">
                                 <div className="text-xl font-semibold text-zinc-500">Name</div>
-                                <div className="text-lg mb-5 font-semibold">{currentShelter.name}</div>
+                                <div className="text-lg mb-5 font-semibold">{currentShelter?.name}</div>
                             </div>
                             <div className="basis-1/2">
                                 <div className="text-xl font-semibold text-zinc-500">Description</div>
-                                <div className="text-lg mb-5 font-semibold">{currentShelter.description}</div>
+                                <div className="text-lg mb-5 font-semibold">{currentShelter?.description}</div>
                             </div>
                             <div className="basis-1/2">
                                 <div className="text-xl font-semibold text-zinc-500 mb-2">Disaster Type</div>
-                                <div className="text-lg mb-5 font-semibold bg-cyan-500 text-white w-fit px-5 rounded-full py-1">{currentShelter.disasterType}</div>
+                                <div className="text-lg mb-5 font-semibold bg-cyan-500 text-white w-fit px-5 rounded-full py-1">{currentShelter?.disasterType}</div>
                             </div>
                             <div className="basis-1/2">
                                 <div className="text-xl font-semibold text-zinc-500">Status</div>
-                                <div className="text-lg mb-5 font-semibold">{currentShelter.progress}</div>
+                                <div className="text-lg mb-5 font-semibold">{currentShelter?.progress}</div>
                             </div>
                         </div>
                     </div>
@@ -169,14 +187,15 @@ function Shelter() {
                                             <PopoverTrigger><Button className="rounded-xl">Volunteer to this shelter as an org</Button></PopoverTrigger>
                                             <PopoverContent>
                                                 <Label htmlFor="count">People Count</Label>
-                                                <input
+                                                <Input
                                                     id="count"
+                                                    type="number"
                                                     defaultValue="1"
                                                     className="mt-5"
                                                     value={count}
-                                                    onChange={(e) => {setCount(e.target.value)}}
+                                                    onChange={(e) => { setCount(e.target.value) }}
                                                 />
-                                                <Button className="mt-5" onClick={() => {addOrgToShelter(count)}}>Submit</Button>
+                                                <Button className="mt-5" onClick={() => { addOrgToShelter(count) }}>Submit</Button>
                                             </PopoverContent>
                                         </Popover>
                                     )
@@ -186,9 +205,9 @@ function Shelter() {
                             <div className="basis-1/2">
                                 <div className="text-xl font-semibold text-zinc-500 mb-2">Organizations</div>
                                 <div>
-                                    {orgs.length == 0 ? <div className="text-lg font-semibold">Currently no organizations involved</div> : orgs.map((org) => {
+                                    {orgs.length === 0 ? <div className="text-lg font-semibold">Currently no organizations involved</div> : orgs.map((org) => {
                                         return (
-                                            <div className="flex justify-start gap-5 items-center">
+                                            <div key={org.name} className="flex justify-start gap-5 items-center">
                                                 <div className="text-lg font-semibold">{org.name}</div>
                                                 <div className="text-md bg-zinc-600 text-white rounded-full w-fit py-1 px-3 font-bold">{org.people}</div>
                                             </div>
@@ -199,9 +218,9 @@ function Shelter() {
                             <div className="basis-1/2">
                                 <div className="text-xl font-semibold text-zinc-500 mb-2">Individuals</div>
                                 <div>
-                                    {users.length == 0 ? <div className="text-lg font-semibold">Currently no individial volunteers</div> : users.map((user) => {
+                                    {users.length === 0 ? <div className="text-lg font-semibold">Currently no individual volunteers</div> : users.map((user) => {
                                         return (
-                                            <div className="text-lg font-semibold">{user}</div>
+                                            <div key={user} className="text-lg font-semibold">{user}</div>
                                         )
                                     })}
                                 </div>

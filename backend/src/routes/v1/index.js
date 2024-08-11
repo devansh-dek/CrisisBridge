@@ -4,7 +4,7 @@ const { UserController, ShelterController, OrganizationController } = require('.
 // authentication
 router.post('/signup', UserController.signup);
 router.post('/login', UserController.login);
-router.post('/isauthenticated', UserController.isAuthenticated);
+router.get('/isauthenticated', UserController.isAuthenticated);
 router.post('/getbyemail', UserController.getById);
 //Shelter
 router.post('/shelter', ShelterController.createShelter);

@@ -36,8 +36,8 @@ const login = async (req, res) => {
     try {
         console.log("username ,pass and email are ", password, email);
         const response = await userService.login({ password, email });
-        const token = response.jwt; // Ensure this token is being set correctly
-
+        const token = response.access; // Ensure this token is being set correctly
+        console.log("response is ", response);
         res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -69,7 +69,7 @@ const isAuthenticated = async (req, res) => {
             throw new Error("Token not provided");
         }
         console.log(token, 'is our token');
-        const response = await userService.isAuthenticated(token);
+        const response = await userService.authenticate(token);
         return res.status(200).json({
             response: response,
             success: true,
